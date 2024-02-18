@@ -12,7 +12,7 @@ function UserSettings() {
   // const [userData,setUserData]=useState(null)
 
   
-  console.log(data)
+  // console.log(data)
 
   const [settingsData, setSettingsData] = useState({
     name: `${userData.firstname} ${userData.lastname}`,

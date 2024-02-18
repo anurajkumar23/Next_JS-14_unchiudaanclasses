@@ -21,7 +21,7 @@ function TestPage({ userData }) {
           
           try {
             const response = await axios.delete(
-              `${import.meta.env.VITE_BACKEND_URL}/user/${userData.user._id}/test/delete/${item._id}`
+              `https://api.unchiudaanclasses.com/api/user/${userData.user._id}/test/delete/${item._id}`
             );
             // console.log("Object deleted successfully:", response.data);
           } catch (error) {

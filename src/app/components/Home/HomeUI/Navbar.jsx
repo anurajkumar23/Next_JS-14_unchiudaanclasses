@@ -149,7 +149,7 @@ export default function Navbar({ userData }) {
             <Link href="/currentaffairs" className="block focus:outline-none">
               Current Affairs
             </Link>
-            <Link href="/News" className="block">
+            <Link href="/news" className="block">
               News
             </Link>
             <div className="relative group">

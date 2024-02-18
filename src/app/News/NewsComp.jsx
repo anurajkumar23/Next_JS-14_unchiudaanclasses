@@ -38,7 +38,7 @@ function NewsComp({ newsItems, userData, onNewsDelete }) {
       try {
         loadingToast = toast.loading("Deleting News..."); // Display loading toast
         const response = await axios.delete(
-          `${import.meta.env.VITE_BACKEND_URL}/news/${newsId}`,
+          `https://api.unchiudaanclasses.com/api/news/${newsId}`,
           {
             headers: {
               Authorization: token,
@@ -97,7 +97,7 @@ function NewsComp({ newsItems, userData, onNewsDelete }) {
 
           return (
             <Link
-              href={`/News/${news._id}`}
+              href={`/news/${news._id}`}
               key={news._id}
               className="block w-full md:w-[100%] lg:w-[120%] xl:w-[120%] mb-8"
             >
