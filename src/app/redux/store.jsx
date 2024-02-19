@@ -1,24 +1,23 @@
-import { userSlice } from "./slices/userSlices";
-import { configureStore,combineReducers } from "@reduxjs/toolkit";
-// import {persistReducer} from 'redux-persist'
-
-// import storage from 'redux-persist/lib/storage'
-
-
-// const persistConfig={
-//     key:'root',storage
-// }
-
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
+import { currentAffairsApi } from "./slices/currentAffairsApi";
+import { pdfApi } from "./slices/pdfApi";
 
 const rootReducer = combineReducers({
-    [userSlice.reducerPath]: userSlice.reducer
-})
-// const persistedReducer=persistReducer(persistConfig,rootReducer)
+    [currentAffairsApi.reducerPath]: currentAffairsApi.reducer,
+    [pdfApi.reducerPath]: pdfApi.reducer
+});
 
 export const store = configureStore({
-    reducer:rootReducer,
-    middleware: getDefaultMiddleware=>getDefaultMiddleware().concat(userSlice.middleware)
-})
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(
+            currentAffairsApi.middleware, 
+            pdfApi.middleware
+        )
+});
 
-export const RootState = store.getState
-export const AppDispatch = store.dispatch
+setupListeners(store.dispatch);
+
+export const RootState = store.getState;
+export const AppDispatch = store.dispatch;

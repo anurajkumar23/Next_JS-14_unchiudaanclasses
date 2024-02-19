@@ -1,23 +1,22 @@
-"use client"
-import { useEffect, useState } from "react";
+"use client";
 import PdfComp from "./PdfComp";
-import axios from "axios";
 import Link from "next/link";
+import { useGetLastestPDFQuery } from "../../redux/slices/pdfApi";
 
 export default function HomePdf() {
-  const [pdfs, setPdfs] = useState([]);
-  useEffect(() => {
-    axios
-    .get(`https://api.unchiudaanclasses.com/api/pdfs/lastestPdfs`)
-      .then((response) => {
-        setPdfs(response.data.data.pdf);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  const { data: pdfs, error, isLoading } = useGetLastestPDFQuery();
+  console.log("🚀 ~ HomePdf ~ pdfs:", pdfs);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
+  if (!pdfs) {
+    return <div>No data available</div>;
+  }
 
   return (
     <div className="mx-10">
@@ -49,7 +48,7 @@ export default function HomePdf() {
         })}
       </div>
       <Link href="/pdfs">
-      <div className="text-center hover:bg-purple-500 mt-6 text-xl mx-auto  font-semibold w-fit  px-5 py-1 bg-purple-300 text-white rounded-xl hover:shadow-xl ">
+        <div className="text-center hover:bg-purple-500 mt-6 text-xl mx-auto  font-semibold w-fit  px-5 py-1 bg-purple-300 text-white rounded-xl hover:shadow-xl ">
           View More
         </div>
       </Link>

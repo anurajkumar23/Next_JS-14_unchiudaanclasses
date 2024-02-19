@@ -1,6 +1,6 @@
 "use client"
 /* eslint-disable react/prop-types */
-import NewsComp from "./components/NewsComp";
+import NewsComp from "./NewsComp";
 import { useEffect, useState } from "react";
 import axios from "axios";
 // import { Helmet } from "react-helmet-async";

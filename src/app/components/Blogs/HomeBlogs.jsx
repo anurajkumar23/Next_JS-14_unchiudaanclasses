@@ -1,24 +1,23 @@
-"use client";
-import { useEffect, useState } from "react";
-import axios from "axios"; // Import axios
+"use client"
 import BlogComp from "./container";
 import Link from "next/link";
 
-export default function HomeBlogs() {
-  const [affairs, setAffairs] = useState([]);
+import { useGetLastestCurrentAffairsQuery } from "../../redux/slices/currentAffairsApi";
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    axios
-    .get(`https://api.unchiudaanclasses.com/api/currentaffairs/lastestAffairs`)
-    .then((response) => {
-        
-        setAffairs(response.data.data.affairs);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+export default function HomeBlogs() {
+  const { data: affairs, error, isLoading } = useGetLastestCurrentAffairsQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!affairs) {
+    return <div>No data available</div>;
+  }
 
   return (
     <div className="mx-10">

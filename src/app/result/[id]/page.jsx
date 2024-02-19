@@ -1,15 +1,16 @@
-"use client";
 /* eslint-disable react/prop-types */
-import axios from "axios";
+"use client"
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ResultData } from "./ResultData";
-import logo from "../../../../public/uchiudan.png";
+import Image from "next/image";
 import html2canvas from "html2canvas/dist/html2canvas";
 import jsPDF from "jspdf";
-import Image from "next/image";
+import logo from "../../../../public/uchiudan.png";
+import { useParams } from 'next/navigation'
 
-export default function ResultPage({ userData }) {
+export const Result = ({ userData }) => {
+  // const router = useRouter();
   const { id } = useParams();
   const [resultData, setResultData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ export default function ResultPage({ userData }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const [resultHeading, setResultHeading] = useState("");
-  const [loader, SetLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   let role;
 
@@ -98,11 +99,11 @@ export default function ResultPage({ userData }) {
             district,
             percentage,
           } = userResults;
-
+  
           const rank = index + 1;
           const incorrect = totalQuestions - correct - notattempt;
-          const maskedPhoneNumber = userphone.replace(/.(?=.{4})/g, "X");
-
+          const maskedPhoneNumber = userphone.replace(/.(?=.{4})/g, 'X');
+  
           return {
             username,
             userphone,
@@ -177,89 +178,97 @@ export default function ResultPage({ userData }) {
         </button>
       </div>
       <div className="text-center">
-        {role ? (
-          <button
-            className="transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
-            onClick={downloadPDF}
-            disabled={!(loader === false)}
-          >
-            {loader ? <span>Downloading</span> : <span>Download</span>}
-          </button>
-        ) : (
-          ""
-        )}
+      {role ? (
+        <button
+          className="transform -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded-md "
+          onClick={downloadPDF}
+          disabled={!(loader === false)}
+        >
+          {loader ? <span>Downloading</span> : <span>Download</span>}
+        </button>
+      ) : (
+        ""
+      )}
       </div>
-      <div className="w-full px-[2%]  mb-[3rem]">
-        <div className="overflow-x-auto ">
-          <table className="result-table opacity-90 ">
+      <div className="  w-full px-[2%]  mb-[3rem]">
+      <div className="overflow-x-auto ">      
+        <table className="result-table">
+          <div className=" inset-0 z-10 pointer-events-none ">
+            <div
+              className="absolute inset-0 bg-center bg-contain bg-repeat-y opacity-10"
+              style={{
+                backgroundImage: `url(${logo})`,
+                backgroundSize: "auto 100%",
+              }}
+            ></div>
+          </div>
+
           <thead className="">
-              <tr className="bg-gray-300 text-center ">
-                <td
-                  className=" bg-gradient-to-r from-indigo-700 to-purple-700 mx-auto px-6 py-3 border-b border border-black text-white uppercase font-semibold"
-                  colSpan="20"
-                >
-                  <div className="flex items-center justify-center space-x-2">
-                    <Image
-                      width={500}
-                      height={500}
-                      src={logo}
-                      alt="unchiudaanclasses"
-                      className="w-20 h-20"
-                    />
-                    <div>
-                      <span className="flex justify-center text-3xl">
-                        ऊँची उड़ान
-                      </span>
-                      <span className="lowercase">
-                        www.unchiudaanclasses.com
-                      </span>
-                    </div>
+            <tr className="bg-gray-300 text-center ">
+              <td
+                className="bg-gradient-to-r from-indigo-500 to-purple-500 h-2 mx-auto   px-6 py-3 border-b border border-black text-white uppercase font-semibold "
+                colSpan="20"
+              >
+                <div className="flex items-center justify-center space-x-2">
+                  <Image
+                  width={500}
+                  height={500}
+                    src={logo}
+                    alt="unchiudaanclasses"
+                    className="w-20 h-20"
+                  />
+                  <div>
+                    <span className="flex justify-center text-3xl">
+                      ऊँची उड़ान
+                    </span>
+                    <span className="lowercase">www.unchiudaanclasses.com</span>
                   </div>
-                  <br />
-                  <span className="font-bold">{decodedHeading} </span>
-                </td>
-              </tr>
-              <tr className="bg-gray-200">
-                <th className="px-6 py-3 border-b border border-black">Rank</th>
-                <th className="px-6 py-3 border-b border border-black">Name</th>
-                <th className="px-6 py-3 border-b border border-black">
-                  District
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Phone no
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Total Ques.
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Correct Ans.
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Wrong Ans.
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Not attempt
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Negative Marks
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Obtained Marks
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Percentage (%)
-                </th>
-                <th className="px-6 py-3 border-b border border-black">
-                  Submit Time (seconds)
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <ResultData results={filteredResults} />
-            </tbody>
-          </table>
-        </div>
+                </div>
+                <br />
+                <span className="font-bold">{decodedHeading} </span>
+              </td>
+            </tr>
+            <tr className="bg-gray-200">
+              <th className="px-6 py-3 border-b border border-black">Rank</th>
+              <th className="px-6 py-3 border-b border border-black">Name</th>
+              <th className="px-6 py-3 border-b border border-black">
+                District
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Phone no
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Total Ques.
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Correct Ans.
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Wrong Ans.
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Not attempt
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Negative Marks
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Obtained Marks
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Percentage (%)
+              </th>
+              <th className="px-6 py-3 border-b border border-black">
+                Submit Time (seconds)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ResultData results={filteredResults} />
+          </tbody>
+        </table>
+      </div>
       </div>
     </div>
   );
-}
+};
