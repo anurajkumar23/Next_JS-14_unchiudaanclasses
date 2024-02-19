@@ -2,11 +2,17 @@
 "use client"
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Head from "next/head";
+
 import { BlogComps } from "./AffairsContainer";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import Sidebar from "../components/Sidebar/Sidebar";
+// import  Metadata  from 'next';
+// import Head from "next/head";
 
+// export const metadata = {
+//   title: 'Daily Current Affairs/ कर्रेंट अफेयर्स',
+//   description: 'Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence..',
+// }
 
 function Currentaffairs({ userData }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -78,7 +84,7 @@ function Currentaffairs({ userData }) {
 
   return (
     <div className="mx-auto py-[6rem]">
-       <Head>
+       {/* <>
         <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
         <meta
           name="description"
@@ -115,7 +121,7 @@ function Currentaffairs({ userData }) {
         />
 
         <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
-      </Head>
+      </> */}
       <div className="container mx-auto px-4">
         <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
           <span className="mr-2">All Current Affairs</span>
