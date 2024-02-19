@@ -189,7 +189,7 @@ function Currentaffairs({ userData }) {
                   category={blog.category}
                   set_no={blog.set_no}
                   id={blog._id}
-                  userData={userData}
+                  // userData={userData}
                   onDeleteSuccess={handleDeleteSuccess}
                 />
               );
