@@ -19,4 +19,4 @@ export const currentAffairsApi = createApi({
     })
 });
 
-export const { useGetLastestCurrentAffairsQuery } = currentAffairsApi;
+export const { useGetLastestCurrentAffairsQuery} = currentAffairsApi;

@@ -56,7 +56,6 @@ const NewsCard = () => {
       <div className="">
         <NewsComp
           newsItems={news}
-        //   userData={userData}
           onNewsDelete={handleNewsDelete}
         />
       </div>
