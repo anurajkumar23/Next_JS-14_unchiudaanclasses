@@ -6,16 +6,18 @@ import { useParams } from "next/navigation";
 import { FaDownload, FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
 // import { SocialMedia } from "../../consstant/socialmedia";
-// import PDFPatchForm from "../Home/core/Auth/Admin/PDFPatchForm";
+// import PDFPatchForm from "../../components/Home/core/Auth/Admin/PDFPatchForm";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
-function DownloadPage({ userData }) {
+function DownloadPage() {
+  const { data: userData} = useGetUserQuery();
   const { id } = useParams();
   const [pdfDetails, setPdfDetails] = useState(null);
 
   let role;
 
   if (userData) {
-    if (userData.user.role === "admin") {
+    if (userData.role === "admin") {
       role = true;
     } else {
       role = false;
@@ -68,7 +70,7 @@ function DownloadPage({ userData }) {
       window.location.href = "/login";
       return;
     }
-    const alreadybuy = userData.user.pdfs.includes(pdfDetails._id);
+    const alreadybuy = userData.pdfs.includes(pdfDetails._id);
 
     if (pdfDetails.status === "free" || alreadybuy) {
       const downloadLink = `https://api.unchiudaanclasses.com/api/pdfs/download-pdf/${id}`;
@@ -84,9 +86,9 @@ function DownloadPage({ userData }) {
         const res = await axios.post(
           `https://api.unchiudaanclasses.com/api/payment/createOrderId`,
           {
-            name: userData.user.firstname,
-            email: userData.user.email,
-            phone: userData.user.phone,
+            name: userData.firstname,
+            email: userData.email,
+            phone: userData.phone,
             amount: pdfDetails.price,
             pdfid: pdfDetails._id,
           }
@@ -98,7 +100,7 @@ function DownloadPage({ userData }) {
         cashfree
           .checkout({
             paymentSessionId: res.data.paymentSessionId,
-            returnUrl: `https://api.unchiudaanclasses.com/api/payment/NRRTWSD/unchiudan/pdf/${userData.user._id}/${id}`,
+            returnUrl: `https://api.unchiudaanclasses.com/api/payment/NRRTWSD/unchiudan/pdf/${userData._id}/${id}`,
             // returnUrl: `https://www.youtube.com/`,
             // redirectTarget: "_blank",
           })
@@ -188,7 +190,7 @@ function DownloadPage({ userData }) {
           {/* <SocialMedia /> */}
         </div>
       </div>
-      {role ? <PDFPatchForm details={pdfDetails} /> : ""}
+      {/* {role ? <PDFPatchForm details={pdfDetails} /> : ""} */}
     </div>
   );
 }

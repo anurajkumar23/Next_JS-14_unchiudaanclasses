@@ -5,14 +5,16 @@ import { MdOutlineDelete } from "react-icons/md";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import Image from "next/image";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
 
 
-function NewsComp({ newsItems, userData, onNewsDelete }) {
+function NewsComp({ newsItems, onNewsDelete }) {
+  const { data: userData} = useGetUserQuery();
   let role;
 
   if (userData) {
-    if (userData.user.role === "admin") {
+    if (userData.role === "admin") {
       role = true;
     } else {
       role = false;

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect } from "react";
 import { useState } from "react";
@@ -6,18 +6,20 @@ import axios from "axios";
 import { BlogComps } from "./AffairsContainer";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
-
-const CurrentAffairsCard = ({ userData }) => {
+const CurrentAffairsCard = () => {
+  const { data: userData, error, isLoading } = useGetUserQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
   const [affairs, setAffairs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filter, setFilter] = useState(false);
-  const isSmallScreen = () => typeof window !== 'undefined' && window.innerWidth <= 680;
+  const isSmallScreen = () =>
+    typeof window !== "undefined" && window.innerWidth <= 680;
 
-//   const canonicalUrl = window.location.href;
+  //   const canonicalUrl = window.location.href;
 
   const toggleFilter = () => {
     setFilter(!filter);
@@ -26,7 +28,7 @@ const CurrentAffairsCard = ({ userData }) => {
   const fetchData = (page, category) => {
     let apiUrl = `https://api.unchiudaanclasses.com/api/currentaffairs`;
 
-    if (category ) {
+    if (category) {
       apiUrl += `?category=${category}&page=${page}&limit=${postsPerPage}`;
     } else {
       apiUrl += `?page=${page}&limit=${postsPerPage}`;
@@ -77,7 +79,7 @@ const CurrentAffairsCard = ({ userData }) => {
 
   return (
     <div>
-       <div className="p-2">
+      <div className="p-2">
         {isSmallScreen && (
           <div className="flex items-center">
             <button
@@ -106,7 +108,7 @@ const CurrentAffairsCard = ({ userData }) => {
           className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-10 md:mx-0 ${
             filter ? "hidden" : "block"
           }`}
-          >
+        >
           {affairs.length === 0 ? (
             <div className="items-center justify-center ">
               <p className="text-center  text-gray-500">
@@ -203,7 +205,7 @@ const CurrentAffairsCard = ({ userData }) => {
         </select>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CurrentAffairsCard
+export default CurrentAffairsCard;
