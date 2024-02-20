@@ -11,7 +11,7 @@ import { BiSolidNews } from "react-icons/bi";
 import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
 import Testicon from "./icons/icons8-test.gif";
 // import { useGetUserQuery } from "../../../redux/slices/userSlices";
-import logo from "../../../../../public/uchiudan.png"
+import logo from "../../../../public/uchiudan.png"
 
 export default function Navbar({ userData }) {
   // console.log(userData.user.email)

@@ -6,6 +6,8 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import Image from "next/image";
 
+
+
 function NewsComp({ newsItems, userData, onNewsDelete }) {
   let role;
 
