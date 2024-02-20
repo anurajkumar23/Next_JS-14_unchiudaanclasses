@@ -4,9 +4,11 @@ import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import BlogComps from "./PdfBlogComps";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
 
-const Pdfpage = ({ userData }) => {
+const Pdfpage = () => {
+  const { data: userData} = useGetUserQuery();
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(12);

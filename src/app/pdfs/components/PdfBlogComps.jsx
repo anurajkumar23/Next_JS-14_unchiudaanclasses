@@ -18,7 +18,7 @@ function BlogComps({
     let role;
   
     if (userData) {
-      if (userData.user.role === "admin") {
+      if (userData.role === "admin") {
         role = true;
       } else {
         role = false;

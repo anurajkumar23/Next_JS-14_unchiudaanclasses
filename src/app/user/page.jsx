@@ -1,28 +1,37 @@
 /* eslint-disable react/prop-types */
 "use client"
-import { useEffect, useState } from "react";
-import {useAppSelector,useAppDispatch} from "../hooks"
+import { useState } from "react";
 import { FiUser, FiMail, FiPhone, FiLock } from "react-icons/fi";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast"; // Import toast
 import Link from "next/link";
-// import { useGetUserQuery } from "../redux/slices/userSlices";
+import { useGetUserQuery } from "../redux/slices/userSlices";
+
 
 function UserSettings() {
-  // const [userData,setUserData]=useState(null)
-
-  
-  // console.log(data)
-
-  const [settingsData, setSettingsData] = useState({
-    name: `${userData.firstname} ${userData.lastname}`,
-    email: userData.email,
-    phone: userData.phone,
-    role: userData.role,
-    googleLogIn:userData.googleLogIn,
-   
-
-  });
+  const { data: userData, error, isLoading } = useGetUserQuery();
+  // const [settingsData, setSettingsData] = useState({
+    const [passwordData, setPasswordData] = useState({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+  //   name: userData ? `${userData.firstname} ${userData.lastname}` : "",
+  //   email: userData ? userData.email : "",
+  //   phone: userData ? userData.phone : "",
+  //   role: userData ? userData.role : "",
+  //   googleLogIn: userData ? userData.googleLogIn : false,
+  // });
+  if (isLoading) {
+    return <div className="mt-[9rem]">Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  if (!userData) {
+    return <div>No data available</div>;
+  }
+ 
 
   const token = localStorage.getItem("jwt_token");
 
@@ -62,11 +71,6 @@ function UserSettings() {
     }
   };
 
-  const [passwordData, setPasswordData] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-  });
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
@@ -124,7 +128,7 @@ function UserSettings() {
               </li>
             </Link>
 
-            {settingsData.role === "admin" ? (
+            {userData.role === "admin" ? (
               <Link href="/adminpower">
                 <li className="mb-4 text-white font-bold pl-[1.3rem] cursor-pointer">
                   Admin power
@@ -149,7 +153,7 @@ function UserSettings() {
                     className="form__input border border-gray-300 p-2 rounded"
                     placeholder="Name"
                     name="name"
-                    value={settingsData.name}
+                    value={`${userData.firstname} ${userData.lastname}`}
                     onChange={handleSettingsChange}
                   />
                 </div>
@@ -162,7 +166,7 @@ function UserSettings() {
                     className="form__input border border-gray-300 p-2 rounded"
                     placeholder="Email Address"
                     name="email"
-                    value={settingsData.email}
+                    value={userData.email}
                     onChange={handleSettingsChange}
                   />
                 </div>
@@ -175,7 +179,7 @@ function UserSettings() {
                     className="form__input border border-gray-300 p-2 rounded"
                     placeholder="Number"
                     name="phone"
-                    value={settingsData.phone}
+                    value={userData.phone}
                     onChange={handleSettingsChange}
                   />
                 </div>

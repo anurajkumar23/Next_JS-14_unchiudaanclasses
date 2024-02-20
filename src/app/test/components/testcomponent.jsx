@@ -5,6 +5,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { useState } from "react";
 import Image from "next/image";
 
+
 function formatTimestamp(timestamp) {
   const date = new Date(timestamp);
 
@@ -28,14 +29,15 @@ function formatTimestamp(timestamp) {
   return `${day} - ${month} - ${year} ${hour}:${minute}:${second} ${amOrPm}`;
 }
 
-function testComp({ testsItems, userData, onTestsDelete }) {
+function testComp({ testsItems,userData, onTestsDelete }) {
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [block, setBlock] = useState(false);
 
   let role;
 
   if (userData) {
-    if (userData.user.role === "admin") {
+    if (userData.role === "admin") {
       role = true;
     } else {
       role = false;
