@@ -1,30 +1,23 @@
-/* eslint-disable react/prop-types */
 "use client"
-import { useState, useEffect } from "react";
-import axios from "axios";
 
-import { BlogComps } from "../AffairsContainer";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { BlogComps } from "./AffairsContainer";
 import { RiMenu3Fill, RiCloseFill } from "react-icons/ri";
 import Sidebar from "../../components/Sidebar/Sidebar";
-// import  Metadata  from 'next';
-// import Head from "next/head";
 
-// export const metadata = {
-//   title: 'Daily Current Affairs/ कर्रेंट अफेयर्स',
-//   description: 'Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence..',
-// }
 
-function Currentaffairs({ userData }) {
+const CurrentAffairsCard = ({ userData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
-
   const [affairs, setAffairs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filter, setFilter] = useState(false);
-  const isSmallScreen = window.innerWidth <= 680;
+  const isSmallScreen = () => typeof window !== 'undefined' && window.innerWidth <= 680;
 
-  const canonicalUrl = window.location.href;
+//   const canonicalUrl = window.location.href;
 
   const toggleFilter = () => {
     setFilter(!filter);
@@ -32,7 +25,8 @@ function Currentaffairs({ userData }) {
 
   const fetchData = (page, category) => {
     let apiUrl = `https://api.unchiudaanclasses.com/api/currentaffairs`;
-    if (category) {
+
+    if (category ) {
       apiUrl += `?category=${category}&page=${page}&limit=${postsPerPage}`;
     } else {
       apiUrl += `?page=${page}&limit=${postsPerPage}`;
@@ -81,54 +75,9 @@ function Currentaffairs({ userData }) {
     fetchData(currentPage, selectedCategory); // Fetch data again after successful deletion
   };
 
-
   return (
-    <div className="mx-auto py-[6rem]">
-       {/* <>
-        <title>Daily Current Affairs/ कर्रेंट अफेयर्स</title>
-        <meta
-          name="description"
-          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
-        />
-        <link rel="canonical" href={canonicalUrl} />
-
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Daily Current Affairs/ कर्रेंट अफेयर्स"
-        />
-        <meta
-          property="og:description"
-          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
-        />
-        <meta
-          property="og:image"
-          content="https://unchiudaanclasses.com/uchiudan.png"
-        />
-
-        <meta name="twitter:card" content="summary" />
-        <meta
-          name="twitter:title"
-          content="Daily Current Affairs/ कर्रेंट अफेयर्स"
-        />
-        <meta
-          name="twitter:description"
-          content="Current Affairs for UPSC, BPSC, बिहार दारोगा, SI, BSSC, Railway, JSSC, SSC, BANKING, Defence.."
-        />
-        <meta
-          name="twitter:image"
-          content="https://unchiudaanclasses.com/uchiudan.png"
-        />
-
-        <meta name="author" content="Anuraj kumar, ishu singh, @ImKKingshuk" />
-      </> */}
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 flex items-center justify-center text-center">
-          <span className="mr-2">All Current Affairs</span>
-        </h1>
-      </div>
-
-      <div className="p-2">
+    <div>
+       <div className="p-2">
         {isSmallScreen && (
           <div className="flex items-center">
             <button
@@ -157,7 +106,7 @@ function Currentaffairs({ userData }) {
           className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full mx-10 md:mx-0 ${
             filter ? "hidden" : "block"
           }`}
-        >
+          >
           {affairs.length === 0 ? (
             <div className="items-center justify-center ">
               <p className="text-center  text-gray-500">
@@ -168,9 +117,6 @@ function Currentaffairs({ userData }) {
             affairs.map((blog) => {
               const createdAt = new Date(blog.createdAt);
               const updatedAt = new Date(blog.updatedAt);
-              {
-                /* createdAt.setDate(createdAt.getDate() + 1); */
-              }
               const formattedDate = createdAt.toLocaleString("default", {
                 day: "numeric",
                 month: "long",
@@ -257,7 +203,7 @@ function Currentaffairs({ userData }) {
         </select>
       </div>
     </div>
-  );
+  )
 }
 
-export default Currentaffairs;
+export default CurrentAffairsCard
