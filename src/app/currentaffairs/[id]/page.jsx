@@ -1,8 +1,3 @@
-/* eslint-disable react/prop-types */
-
-
-// import PatchAffairsForm from "../Home/core/Auth/Admin/AffairsPatchForm";
-
 import {
   FaFacebook,
   FaTwitter,
@@ -14,7 +9,7 @@ import getCurrentAffairs from "../../lib/getCurrentAffairs"
 import Image from "next/image";
 
 import CurrentaffairsId from "./CurrentaffairsId";
-// import { SocialMedia } from "../../consstant/socialmedia";
+
 
 
 export async function generateMetadata({ params: {id}} ){
@@ -64,7 +59,7 @@ async function BlogsPage({params: {id}}) {
               }}
             />
           </p>
-          <CurrentaffairsId/>
+          {/* <CurrentaffairsId/> */}
         </div>
       </div>
       <div className="flex justify-between mt-10 ">
