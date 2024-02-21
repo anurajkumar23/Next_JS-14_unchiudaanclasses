@@ -8,8 +8,10 @@ import logo from "../../../../public/uchiudan.png";
 import html2canvas from "html2canvas/dist/html2canvas";
 import jsPDF from "jspdf";
 import Image from "next/image";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
-export default function ResultPage({ userData }) {
+export default function ResultPage() {
+  const { data: userData} = useGetUserQuery();
   const { id } = useParams();
   const [resultData, setResultData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,7 +24,7 @@ export default function ResultPage({ userData }) {
   let role;
 
   if (userData) {
-    if (userData.user.role === "admin") {
+    if (userData.role === "admin") {
       role = true;
     } else {
       role = false;
