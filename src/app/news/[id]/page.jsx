@@ -1,89 +1,31 @@
-"use client"
-/* eslint-disable react/prop-types */
 import Link from "next/link";
-import axios from "axios";
-import { useEffect } from "react";
-import { useParams } from "next/navigation";
-import { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
+import getNewsId from "../../lib/getNewsId";
+import he from "he";
+import NewsId from "./NewsId";
 
-// import { SocialMedia } from "../../consstant/socialmedia";
-// import PatchNewsForm from "../Home/core/Auth/Admin/PatchNewsForm";
-// import { Helmet } from "react-helmet-async";
-
-const decodeHtmlEntity = (html) => {
-  const textarea = document.createElement("textarea");
-  textarea.innerHTML = html;
-  return textarea.value;
+const decodeHtmlEntities = (html) => {
+  return he.decode(html);
 };
-// Function to decode HTML entities
-function decodeHtmlEntities(html) {
-  var txt = document.createElement("textarea");
-  txt.innerHTML = html;
-  // Remove HTML tags using a regular expression
-  var plainText = txt.value.replace(/<[^>]*>/g, "");
-  return plainText;
+
+export async function generateMetadata({ params: {id}} ){
+  const news = await getNewsId(id);
+  const decodeAndRemoveHtml = (html) => {
+    // Decode HTML entities
+    const decodedHtml = he.decode(html);
+    // Remove HTML tags
+    const plainText = decodedHtml.replace(/<[^>]*>?/gm, '');
+    return plainText;
+  };
+  return{
+    title: decodeAndRemoveHtml(news.heading),
+    description: decodeAndRemoveHtml(news.article),
+  };
 }
 
-// Component for rendering news content
-function NewsContent({ heading, article, photo }) {
-  return (
-    <div className="py-[5rem] lg:py-[7rem]">
-      <div className="mx-6">
-        <h1
-          className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6"
-          dangerouslySetInnerHTML={{ __html: heading }}
-        ></h1>
-        <div className="md:mx-12 my-1">
-          <Image
-           width={500}
-           height={500}
-            alt="meow"
-            src={`https://api.unchiudaanclasses.com/img/news/${photo}`}
-            className="w-full mx-auto rounded-lg"
-          />
-        </div>
 
-        <p
-          className="mt-4 text-justify text-lg "
-          dangerouslySetInnerHTML={{ __html: article }}
-        />
-        {/* <SocialMedia /> */}
-      </div>
-    </div>
-  );
-}
-
-function NewsPage({ userData }) {
-  const { id } = useParams();
-  const [news, setNews] = useState(null);
-
-  let role;
-  if (userData) {
-    if (userData.user.role === "admin") {
-      role = true;
-    } else {
-      role = false;
-    }
-  } else {
-    role = false;
-  }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/news/${id}`
-        );
-        setNews(response.data.data.news);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
-
+async function NewsPage({ params: { id } }) {
+  const news = await getNewsId(id);
   if (!news) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -101,19 +43,36 @@ function NewsPage({ userData }) {
 
   return (
     <>
-      {" "}
-      {/* <Helmet>
-        <title>{decodeHtmlEntities(news.heading)}</title>
-        <meta name="description" content={decodeHtmlEntities(news.article)} />
-      </Helmet> */}
       <Link href="">
-        <NewsContent
-          heading={decodeHtmlEntity(news.heading)}
-          article={decodeHtmlEntity(news.article)}
-          photo={news.photo}
-        />
+        <div className="py-[5rem] lg:py-[7rem]">
+          <div className="mx-6">
+            <h1
+              className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6"
+              dangerouslySetInnerHTML={{
+                __html: decodeHtmlEntities(news.heading),
+              }}
+            ></h1>
+            <div className="md:mx-12 my-1">
+              <Image
+                width={500}
+                height={500}
+                alt="meow"
+                src={`https://api.unchiudaanclasses.com/img/news/${news.photo}`}
+                className="w-full mx-auto rounded-lg"
+              />
+            </div>
+
+            <p
+              className="mt-4 text-justify text-lg "
+              dangerouslySetInnerHTML={{
+                __html: decodeHtmlEntities(news.article),
+              }}
+            />
+            {/* <SocialMedia /> */}
+          </div>
+          <NewsId />
+        </div>
       </Link>
-      {role && <PatchNewsForm details={news} />}
     </>
   );
 }
