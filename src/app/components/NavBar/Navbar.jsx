@@ -12,8 +12,10 @@ import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
 import Testicon from "./icons/icons8-test.gif";
 // import { useGetUserQuery } from "../../../redux/slices/userSlices";
 import logo from "../../../../public/uchiudan.png"
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
-export default function Navbar({ userData }) {
+export default function Navbar() {
+  const { data: userData, error, isLoading } = useGetUserQuery();
   // console.log(userData.user.email)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -69,7 +71,7 @@ export default function Navbar({ userData }) {
     }
   };
   const googlelogout = async () => {
-    const email = userData.user.email;
+    const email = userData.email;
     window.open(`https://api.unchiudaanclasses.com/api/logout`, "_self");
     await axios.post(`https://api.unchiudaanclasses.com/api/logout`, { email });
   };
@@ -92,11 +94,11 @@ export default function Navbar({ userData }) {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
-                      {userData && userData.user
-                        ? `${userData.user.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#0d80eb] rounded-full">
+                      {userData
+                        ? `${userData.firstname.charAt(
                             0
-                          )} ${userData.user.lastname.charAt(0)}`
+                          )} ${userData.lastname.charAt(0)}`
                         : ""}
                     </span>
                   )}
@@ -117,7 +119,7 @@ export default function Navbar({ userData }) {
                     <div
                       onClick={() => {
                         {
-                          userData.user.googleLogIn
+                          userData.googleLogIn
                             ? googlelogout()
                             : handleLogout();
                         }
@@ -168,11 +170,11 @@ export default function Navbar({ userData }) {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
-                      {userData && userData.user
-                        ? `${userData.user.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#0d80eb] rounded-full">
+                      {userData
+                        ? `${userData.firstname.charAt(
                             0
-                          )} ${userData.user.lastname.charAt(0)}`
+                          )} ${userData.lastname.charAt(0)}`
                         : ""}
                     </span>
                   )}
@@ -193,7 +195,7 @@ export default function Navbar({ userData }) {
                     <div
                       onClick={() => {
                         {
-                          userData.user.googleLogIn
+                          userData.googleLogIn
                             ? googlelogout()
                             : handleLogout();
                         }
