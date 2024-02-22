@@ -94,9 +94,9 @@ export default function Navbar() {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
-                      {userData && userData.user
-                        ? `${userData.user.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-blue-500  hover:bg-blue-700 rounded-full">
+                      {userData 
+                        ? `${userData.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
                         : ""}
@@ -170,9 +170,9 @@ export default function Navbar() {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
-                      {userData && userData.user
-                        ? `${userData.user.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white  bg-blue-500  hover:bg-blue-700 rounded-full">
+                      {userData 
+                        ? `${userData.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
                         : ""}
