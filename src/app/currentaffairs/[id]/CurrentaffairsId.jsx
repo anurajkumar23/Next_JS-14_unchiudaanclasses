@@ -3,13 +3,15 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./quiz.css";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
 
 
-export default function CurrentaffairsId({ userData }) {
+export default function CurrentaffairsId() {
+  const { data: userData} = useGetUserQuery();
   let role;
   if (userData) {
-    if (userData.user.role === "admin") {
+    if (userData.role === "admin") {
       role = true;
     } else {
       role = false;

@@ -2,14 +2,16 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import { useGetUserQuery } from '../../redux/slices/userSlices';
 
-const NewsId = ({ userData }) => {
+const NewsId = () => {
+  const { data: userData} = useGetUserQuery();
     const { id } = useParams();
     const [news, setNews] = useState(null);
   
     let role;
     if (userData) {
-      if (userData.user.role === "admin") {
+      if (userData.role === "admin") {
         role = true;
       } else {
         role = false;
