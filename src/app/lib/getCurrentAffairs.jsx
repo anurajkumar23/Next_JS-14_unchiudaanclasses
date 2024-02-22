@@ -1,4 +1,5 @@
 export default async function getCurrentAffairs(id) {
+  
     try {
       const response = await fetch(`https://api.unchiudaanclasses.com/api/currentaffairs/${id}`);
       const data = await response.json();

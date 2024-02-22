@@ -19,7 +19,7 @@ const TabBar = ({ activeTab, setActiveTab }) => {
           key={tab.id}
           className={`${
             activeTab === tab.id
-              ? "bg-[#EAF5FF]00 text-white"
+              ? "bg-blue-500 text-white"
               : "bg-gray-200 text-black"
           } p-3 flex-1 text-center rounded-full`}
           onClick={() => handleTabChange(tab.id)}

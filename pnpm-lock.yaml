@@ -20,6 +20,9 @@ dependencies:
   html2canvas:
     specifier: ^1.4.1
     version: 1.4.1
+  jodit-react:
+    specifier: ^4.0.9
+    version: 4.0.9(react-dom@18.2.0)(react@18.2.0)
   jspdf:
     specifier: ^2.5.1
     version: 2.5.1
@@ -828,6 +831,11 @@ packages:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
     engines: {node: '>= 4.5.0'}
     hasBin: true
+    dev: false
+
+  /autobind-decorator@2.4.0:
+    resolution: {integrity: sha512-OGYhWUO72V6DafbF8PM8rm3EPbfuyMZcJhtm5/n26IDwO18pohE4eNazLoCGhPiXOCD0gEGmrbU3849QvM8bbw==}
+    engines: {node: '>=8.10', npm: '>=6.4.1'}
     dev: false
 
   /autoprefixer@10.4.17(postcss@8.4.35):
@@ -2150,6 +2158,23 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
     dev: true
+
+  /jodit-react@4.0.9(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-+Hlj8OMjyztMxtb5pukA+XquTJDsH+4UEm8QQvfmkLoxERB2kkoFyFXFL4E01AkWL0T+U0oL9+FqTxEi5N95pQ==}
+    peerDependencies:
+      react: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ~0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      jodit: 4.0.6
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /jodit@4.0.6:
+    resolution: {integrity: sha512-UyWSwQyGhim30mmWo2GH5HKjSsQN5KdhEebajKun08PPKaglDJi7cTXOa5hEUKAgl1PLUsMVKrBWFZdRzcuG6A==}
+    dependencies:
+      autobind-decorator: 2.4.0
+    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

@@ -6,7 +6,7 @@ import Image from "next/image";
 // import PDFPatchForm from "../../components/Home/core/Auth/Admin/PDFPatchForm";
 import getPdfId from "../../lib/getPdfId";
 import he from "he";
-// import PdfButton from "./PdfButton";
+import PdfButton from "./PdfButton";
 import PdfId from "./PdfId";
 
 const decodeHtmlEntities = (html) => {
@@ -85,9 +85,7 @@ async function DownloadPage({ params: { id } }) {
             <a href="#">
               <div className="mt-6 flex w-fit hover:bg-teal-500 px-3 py-1 justify-between space-x-3 text-lg mx-auto rounded-full bg-teal-300 text-white">
                 <FaDownload className="w-6 h-6" />
-                <button onClick="{handleDownload}">
-                  {pdfDetails.status === "free" ? "Download" : "pay & Download"}
-                </button>
+                <PdfButton pdfDetails = {pdfDetails}/>
               </div>
             </a>
           </div>

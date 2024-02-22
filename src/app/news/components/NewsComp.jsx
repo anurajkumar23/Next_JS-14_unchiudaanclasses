@@ -77,6 +77,7 @@ function NewsComp({ newsItems, onNewsDelete }) {
     return textarea.value;
   };
 
+
   return (
     <div className="flex flex-col items-center justify-center">
       {newsItems.length === 0 ? (
