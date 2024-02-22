@@ -10,13 +10,13 @@ import { AiFillRead } from "react-icons/ai";
 import { BiSolidNews } from "react-icons/bi";
 import { FaHome, FaFilePdf } from "react-icons/fa"; // Import the icons you need
 import Testicon from "./icons/icons8-test.gif";
-// import { useGetUserQuery } from "../../../redux/slices/userSlices";
 import logo from "../../../../public/uchiudan.png"
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 
+
 export default function Navbar() {
-  const { data: userData, error, isLoading } = useGetUserQuery();
   // console.log(userData.user.email)
+  const { data: userData} = useGetUserQuery();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -94,9 +94,9 @@ export default function Navbar() {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#0d80eb] rounded-full">
-                      {userData
-                        ? `${userData.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
+                      {userData && userData.user
+                        ? `${userData.user.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
                         : ""}
@@ -125,7 +125,7 @@ export default function Navbar() {
                         }
                         setOpen(false);
                       }}
-                      className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-[#AFB2BF] hover.bg-[#2C333F] hover.text-[#DBDDEA] "
+                      className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-[#AFB2BF] hover:bg-[#2C333F] hover:text-[#DBDDEA]"
                     >
                       <VscSignOut className="text-lg " />
                       Logout
@@ -170,9 +170,9 @@ export default function Navbar() {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#0d80eb] rounded-full">
-                      {userData
-                        ? `${userData.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
+                      {userData && userData.user
+                        ? `${userData.user.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
                         : ""}
@@ -201,7 +201,7 @@ export default function Navbar() {
                         }
                         setOpen(false);
                       }}
-                      className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-700-100 hover.bg-[#2C333F] hover.text-[#DBDDEA] "
+                      className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-[#AFB2BF] hover:bg-[#2C333F] hover:text-[#DBDDEA] "
                     >
                       <VscSignOut className="text-lg " />
                       Logout

@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 
-export function StartTest() {
+export default function StartTest() {
   const { data: userData} = useGetUserQuery();
   const [liveTest, setLiveTest] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
