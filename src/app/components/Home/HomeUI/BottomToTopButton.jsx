@@ -24,7 +24,7 @@ const BottomToTopButton = () => {
 
   return (
     <button
-      className={`fixed bottom-12 right-10 p-3 rounded-full bg-[#EAF5FF]00 hover:bg-blue-700 text-white focus:outline-none ${
+      className={`fixed bottom-12 right-10 p-3 rounded-full bg-blue-500 hover:bg-blue-700 text-white focus:outline-none ${
         isVisible ? "visible" : "invisible"
       }`}
       onClick={handleScrollToTop}

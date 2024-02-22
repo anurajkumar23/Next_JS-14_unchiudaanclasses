@@ -1,12 +1,16 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
+import he from "he";
+import { FaDownload, FaFileAlt } from "react-icons/fa";
+import Image from "next/image";
+import PDFPatchForm from "./PDFPatchForm"
 
 const PdfId = () => {
-  const { data: userData} = useGetUserQuery();
+  const { data: userData } = useGetUserQuery();
   const { id } = useParams();
   const [pdfDetails, setPdfDetails] = useState(null);
 
@@ -29,7 +33,6 @@ const PdfId = () => {
           `https://api.unchiudaanclasses.com/api/pdfs/${id}`
         );
         setPdfDetails(response.data.data.pdf);
-       
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -37,8 +40,6 @@ const PdfId = () => {
 
     fetchData();
   }, [id]);
-
-  
 
   const formatUpdatedAtDate = () => {
     const updatedAtDate = new Date(pdfDetails.updatedAt);
@@ -100,16 +101,86 @@ const PdfId = () => {
     }
   };
   const decodeHtmlEntities = (html) => {
-    const textarea = document.createElement("textarea");
-    textarea.innerHTML = html;
-    return textarea.value;
+    return he.decode(html);
   };
-  
+
+  if (!pdfDetails) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div
+          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-info motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        >
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            Loading...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {/* {role ? <PDFPatchForm details={pdfDetails} /> : ""} */}
-    </div>
-  )
-}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="col-span-3 p-4 overflow-y-auto">
+          <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
+            Monthly Current Affairs PDF Download{" "}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: decodeHtmlEntities(pdfDetails.name),
+              }}
+            />
+          </h1>
+          <div className="mx-6 my-12">
+            <Image
+              width={500}
+              height={500}
+              alt="meow"
+              src={`https://api.unchiudaanclasses.com/img/pdf/${pdfDetails.photo}`}
+              className="w-full mx-auto rounded-lg"
+            />
+          </div>
 
-export default PdfId
+          <div className="w-18 md:mx-12 p-4 border-2 mx-4 rounded-lg mt-16">
+            <div className="flex justify-between space-x-3 h-[150px] md:h-[80px]">
+              <FaFileAlt className="w-12 h-12" />
+              <div className="text-center text-lg leading-[47px]">
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: decodeHtmlEntities(pdfDetails.name),
+                  }}
+                />
+                <span className="leading-[5px]">
+                  Last Updated: {formatUpdatedAtDate()}
+                </span>
+              </div>
+            </div>
+            <a href="#">
+              <div className="mt-6 flex w-fit hover:bg-teal-500 px-3 py-1 justify-between space-x-3 text-lg mx-auto rounded-full bg-teal-300 text-white">
+                <FaDownload className="w-6 h-6" />
+                <button onClick={handleDownload}>
+                  {pdfDetails.status === "free" ? "Download" : "pay & Download"}
+                </button>
+              </div>
+            </a>
+          </div>
+          {/* <SocialMedia /> */}
+          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6">
+            {pdfDetails.category} PDF download <br />
+          </h1>
+          <p className="mt-4 text-justify text-lg">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: decodeHtmlEntities(pdfDetails.description),
+              }}
+            />
+          </p>
+          {/* <SocialMedia /> */}
+        </div>
+      </div>
+      {role ? <PDFPatchForm details={pdfDetails} /> : ""}
+    </div>
+  );
+};
+
+export default PdfId;
