@@ -13,6 +13,7 @@ import Testicon from "./icons/icons8-test.gif";
 import logo from "../../../../public/uchiudan.png"
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 
+
 export default function Navbar() {
   // console.log(userData.user.email)
   const { data: userData} = useGetUserQuery();
@@ -93,9 +94,9 @@ export default function Navbar() {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-blue-500 hover:bg-blue-700 rounded-full">
-                      {userData
-                        ? `${userData.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
+                      {userData && userData.user
+                        ? `${userData.user.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
                         : ""}
@@ -169,9 +170,9 @@ export default function Navbar() {
                       className="aspect-square w-[30px] rounded-full object-cover"
                     />
                   ) : (
-                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-blue-500 hover:bg-blue-700 rounded-full">
-                      {userData 
-                        ? `${userData.firstname.charAt(
+                    <span className="w-[30px] h-[30px] flex items-center justify-center text-sm text-white bg-[#EAF5FF] rounded-full">
+                      {userData && userData.user
+                        ? `${userData.user.firstname.charAt(
                             0
                           )} ${userData.lastname.charAt(0)}`
                         : ""}

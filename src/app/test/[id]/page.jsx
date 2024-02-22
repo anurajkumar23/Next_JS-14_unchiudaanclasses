@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import { LiveTest } from "./LiveTest";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import { useGetUserQuery } from "../../redux/slices/userSlices";
 
-// eslint-disable-next-line react/prop-types
-export function StartTest({ userData }) {
+export default function StartTest() {
+  const { data: userData} = useGetUserQuery();
   const [liveTest, setLiveTest] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -54,59 +55,6 @@ export function StartTest({ userData }) {
  
 
 
-  const handleStartTest = async () => {
-    const userid = userData.user._id;
-    let existingTest = [];
-  
-    try {
-      if (!userData.user.googleLogIn) {
-        const token = localStorage.getItem("jwt_token");
-        const response = await fetch(
-          `https://api.unchiudaanclasses.com/api/user/authenticated`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: token,
-            },
-          }
-        );
-  
-        if (response.ok) {
-          const userData = await response.json();
-          existingTest = userData.user.test || [];
-          setNewData(userData)
-          
-        } else {
-          console.error("Error checking authentication:", response.statusText);
-        }
-      } else {
-        const response = await axios.get(`https://api.unchiudaanclasses.com/api/user/${userid}`);
-        if (response.data.data.user && response.data.data.user.test) {
-          const userData = response.data.data
-          setNewData(userData)
-          existingTest = response.data.data.user.test;
-        }
-      }
-  
-      // Check if the user has already submitted the test
-      const access = existingTest.some((item) => {
-        return item.test_id.toString() === id && item.isSubmit === true;
-      });
-
-  
-      if (!access) {
-        localStorage.setItem("phoneNumber", phoneNumber);
-        localStorage.setItem("selectedDistrict", selectedDistrict);
-        // Set liveTest state to true to start the test
-        setLiveTest(true);
-      } else {
-        setAllow(true);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
   
   return (
     <>
