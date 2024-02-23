@@ -72,7 +72,7 @@ export default function Navbar() {
   };
   const googlelogout = async () => {
     const email = userData.email;
-    window.open(`https://api.unchiudaanclasses.com/api/logout`, "_self");
+    // window.open(`https://api.unchiudaanclasses.com/api/logout`, "_self");
     await axios.post(`https://api.unchiudaanclasses.com/api/logout`, { email });
   };
 

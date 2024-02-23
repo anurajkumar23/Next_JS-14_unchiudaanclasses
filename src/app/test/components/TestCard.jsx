@@ -6,34 +6,36 @@ import { useGetUserQuery } from "../../redux/slices/userSlices";
 
 export default function TestCard() {
   const { data: userData} = useGetUserQuery();
+ 
     const [tests, setTests] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(10);
 
-  
     useEffect(() => {
       const deleteExpiredTests = async () => {
-        
-        for (const item of userData.test) {
-          
-          if (Date.now() >= item.mainend) {
-            
-            try {
-              const response = await axios.delete(
-                `https://api.unchiudaanclasses.com/api/user/${userData._id}/test/delete/${item._id}`
-              );
-              // console.log("Object deleted successfully:", response.data);
-            } catch (error) {
-              console.error("Error deleting object:", error);
-              // Handle error scenarios
+        // Check if userData is defined and has a property named 'test'
+        if (userData && userData.test) {
+          for (const item of userData.test) {
+            if (Date.now() >= item.mainend) {
+              try {
+                const response = await axios.delete(
+                  `https://api.unchiudaanclasses.com/api/user/${userData._id}/test/delete/${item._id}`
+                );
+                // console.log("Object deleted successfully:", response.data);
+              } catch (error) {
+                console.error("Error deleting object:", error);
+                // Handle error scenarios
+              }
             }
           }
         }
       };
-  
+    
       deleteExpiredTests();
     }, [userData]);
+    
+    
   
     const handleTestsDelete = () => {
       fetchData(currentPage); // Trigger a re-fetch of data after deletion
