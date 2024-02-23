@@ -2,12 +2,12 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { LiveTest } from "./LiveTest";
-import { useParams } from "next/navigation";
 import axios from "axios";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
+import { useParams } from "next/navigation";
 
 export default function StartTest() {
-  const { data: userData} = useGetUserQuery();
+  const { data:userData} = useGetUserQuery();
   const [liveTest, setLiveTest] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -21,13 +21,14 @@ export default function StartTest() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://api.unchiudaanclasses.com/api/test/${id}`);
-   
-        if(Date.now() >= response.data.data.test.mainend){
-          
-          setOpen(false)
+        const response = await axios.get(
+          `https://api.unchiudaanclasses.com/api/test/${id}`
+        );
+        console.log(response, "😅😅😅😅")
+
+        if (Date.now() >= response.data.data.test.mainend) {
+          setOpen(false);
         }
-        
       } catch (error) {
         console.error("Error fetching test data:", error);
       }
@@ -36,26 +37,78 @@ export default function StartTest() {
     fetchData();
   }, [id, setOpen]);
 
-
-
-
-  // Retrieve data from local storage when the component mounts
   useEffect(() => {
-    const storedPhoneNumber = localStorage.getItem("phoneNumber");
-    const storedSelectedDistrict = localStorage.getItem("selectedDistrict");
+    // Check if window is defined (client-side)
+    if (typeof window !== "undefined") {
+      const storedPhoneNumber = localStorage.getItem("phoneNumber");
+      const storedSelectedDistrict = localStorage.getItem("selectedDistrict");
 
-    // If data exists in local storage, set the state with the retrieved values
-    if (storedPhoneNumber && storedSelectedDistrict) {
-      setPhoneNumber(storedPhoneNumber);
-      setSelectedDistrict(storedSelectedDistrict);
+      if (storedPhoneNumber && storedSelectedDistrict) {
+        setPhoneNumber(storedPhoneNumber);
+        setSelectedDistrict(storedSelectedDistrict);
+      }
     }
   }, []);
 
+  const handleStartTest = async () => {
+    const userid = userData._id; // Handle potential null values
+    let existingTest = [];
 
- 
+    try {
+      if (!userData.googleLogIn) {
+        const token = localStorage.getItem("jwt_token");
+        const response = await fetch(
+          `https://api.unchiudaanclasses.com/api/user/authenticated`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: token,
+            },
+          }
+        );
 
+        if (response.ok) {
+          const userData = await response.json();
+          existingTest = userData.user.test || [];
+          setNewData(userData);
+        } else {
+          console.error(
+            "Error checking authentication:",
+            response.statusText
+          );
+        }
+      } else {
+        const response = await axios.get(
+          `https://api.unchiudaanclasses.com/api/user/${userid}`
+        );
+        if (response.data.data.user && response.data.data.user.test) {
+          const userData = response.data.data;
+          setNewData(userData);
+          existingTest = response.data.data.user.test;
+        }
+      }
 
-  
+      // Check if the user has already submitted the test
+      const access = existingTest.some((item) => {
+        return (
+          item.test_id.toString() === id && item.isSubmit === true
+        );
+      });
+
+      if (!access) {
+        localStorage.setItem("phoneNumber", phoneNumber);
+        localStorage.setItem("selectedDistrict", selectedDistrict);
+        // Set liveTest state to true to start the test
+        setLiveTest(true);
+      } else {
+        setAllow(true);
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   return (
     <>
       {open ? (
@@ -72,14 +125,21 @@ export default function StartTest() {
               <div className="mx-auto py-24 flex justify-center items-center">
                 <div className="w-96 bg-white rounded-lg p-6 shadow-md">
                   <div className="text-2xl font-bold mb-4">
-                    {localStorage.getItem("testname")}
+                    {/* Check if window is defined (client-side) */}
+                    {typeof window !== "undefined" &&
+                      localStorage.getItem("testname")}
                   </div>
                   <div className="text-gray-500 text-sm mb-4">
-                    {localStorage.getItem("testdate")}
+                    {/* Check if window is defined (client-side) */}
+                    {typeof window !== "undefined" &&
+                      localStorage.getItem("testdate")}
                   </div>
                   <form className="grid gap-4">
                     <div className="flex flex-col space-y-1.5">
-                      <label htmlFor="number" className="text-sm text-gray-600">
+                      <label
+                        htmlFor="number"
+                        className="text-sm text-gray-600"
+                      >
                         Phone Number
                       </label>
                       <input
@@ -106,7 +166,9 @@ export default function StartTest() {
                         placeholder="Enter your District name"
                         className="border border-gray-300 p-2 rounded-md"
                         value={selectedDistrict}
-                        onChange={(e) => setSelectedDistrict(e.target.value)}
+                        onChange={(e) =>
+                          setSelectedDistrict(e.target.value)
+                        }
                       />
                     </div>
                   </form>
@@ -129,9 +191,11 @@ export default function StartTest() {
           </>
         )
       ) : (
-        <div className="pt-[10rem] text-center mb-[5rem]">Opps! Test Ended 😟. <br/>Donot try to be oversmart😎.</div>
+        <div className="pt-[10rem] text-center mb-[5rem]">
+          Opps! Test Ended 😟. <br />
+          Donot try to be oversmart😎.
+        </div>
       )}
     </>
   );
-  
 }

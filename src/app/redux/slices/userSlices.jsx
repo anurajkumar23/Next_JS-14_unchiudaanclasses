@@ -29,11 +29,11 @@ export const userSlice = createApi({
       providesTags: ["Authuser"],
       transformResponse: (res, meta, arg) => {
         if (arg) return res.find((val) => val.name === arg);
-        console.log(res.user, "😀😀😀😀😀😀");
+        // console.log(res.user, "😀😀😀😀😀😀");
         return res.user;
       },
       onQueryFulfilled: (result, meta) => {
-        console.log("Response:", result, "😀😀😀😀😀😀😀😀😀");
+        // console.log("Response:", result, "😀😀😀😀😀😀😀😀😀");
         console.log("Meta:", meta);
       },
     }),
