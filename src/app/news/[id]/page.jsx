@@ -20,11 +20,11 @@ export async function generateMetadata({ params: {id}} ){
     // alternates:{
     //   canonical: `/news/${id}`
     // },
-    // openGraph: {
-    //   images: `https://api.unchiudaanclasses.com/img/news/${news.photo}`,
-    //   width: 900,
-    //   height: 450,
-    // },
+    openGraph: {
+      images: `https://api.unchiudaanclasses.com/img/news/${news.photo}`,
+      width: 900,
+      height: 450,
+    },
   };
 }
 
