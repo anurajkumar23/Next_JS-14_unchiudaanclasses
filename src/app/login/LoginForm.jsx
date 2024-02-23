@@ -44,8 +44,7 @@ function LoginForm() {
 
   const loginwithGoogle = () => {
     window.open(
-      `https://api.unchiudaanclasses.com/api/oauth/google/callback`,
-      "_self"
+      `https://api.unchiudaanclasses.com/api/oauth/google/callback`
     );
   };
   const login = async (userData) => {
