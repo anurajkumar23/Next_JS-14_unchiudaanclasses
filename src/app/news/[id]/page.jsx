@@ -17,6 +17,14 @@ export async function generateMetadata({ params: {id}} ){
   return{
     title: decodeAndRemoveHtml(news.heading),
     description: decodeAndRemoveHtml(news.article),
+    // alternates:{
+    //   canonical: `/news/${id}`
+    // },
+    // openGraph: {
+    //   images: `https://api.unchiudaanclasses.com/img/news/${news.photo}`,
+    //   width: 900,
+    //   height: 450,
+    // },
   };
 }
 

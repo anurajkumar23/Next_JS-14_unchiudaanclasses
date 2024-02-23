@@ -23,6 +23,10 @@ export const metadata = {
     width: 800,
     height: 600,
   },
+  // metadataBase: new URL("https://unchiudaanclasses.com"),
+  // verification:{
+  //   google: "google-site-verification=wjJCnSurHqFDah3rhIg7OZxlVqiQ8mg33S0ixhqLuJA",
+  // }
 };
 
 
