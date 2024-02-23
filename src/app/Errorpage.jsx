@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-
+import React from 'react';
 
 const ErrorPage = () => {
   return (
@@ -8,7 +7,10 @@ const ErrorPage = () => {
         <div className="text-center">
           <div
             className="bg-cover bg-center h-80 sm:h-96 sm:w-80 md:w-full"
-            style={{ backgroundImage: 'url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif)' }}
+            style={{ 
+              backgroundImage: 'url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif)',
+              alt: 'Error 404 Image' // Add alt tag for accessibility
+            }}
           >
             <h1 className="text-5xl sm:text-4xl text-center text-black">404</h1>
           </div>

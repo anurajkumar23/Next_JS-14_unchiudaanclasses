@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 "use client"
+import React from 'react'
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useGetUserQuery } from "../redux/slices/userSlices";
-import ErrorPage from "../Errorpage";
-import SidebarAdmin from "./SidebarAdmin"
+// import ErrorPage from "../Errorpage";
+// import SidebarAdmin from "./SidebarAdmin"
 
-const AdminPage = () => {
+export default function page() {
   // Fetching user data to determine if the user is an admin
   const { data: userData } = useGetUserQuery();
   let role;
@@ -100,11 +101,23 @@ const AdminPage = () => {
           </div>
           <SidebarAdmin />
         </div>
+
       )}
 
-      {!role && <ErrorPage />}
+      {/* {!role && <ErrorPage />} */}
     </>
   );
 };
 
-export default AdminPage;
+// export default page;
+
+
+// import React from 'react'
+
+// export default function page() {
+//   return (
+//     <div>
+      
+//     </div>
+//   )
+// }
