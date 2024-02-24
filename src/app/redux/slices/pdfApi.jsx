@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const pdfApi = createApi({
     reducerPath: "pdf",
-    baseQuery: fetchBaseQuery({ baseUrl: "${process.env.NEXT_PUBLIC_BACKEND_URL}" }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}` }),
     endpoints: (builder) => ({
         getLastestPDF: builder.query({
             query: () => "/pdfs/lastestPdfs",

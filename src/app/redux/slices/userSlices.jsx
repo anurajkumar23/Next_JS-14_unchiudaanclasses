@@ -4,7 +4,7 @@ export const userSlice = createApi({
   reducerPath: "api",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "${process.env.NEXT_PUBLIC_BACKEND_URL}",
+    baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
     prepareHeaders: (headers, { getState }) => {
       // Check if we are in the browser
       if (typeof window === "undefined") {

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useGetUserQuery } from "../redux/slices/userSlices";
 import ErrorPage from "../Errorpage";
-// import SidebarAdmin from "./SidebarAdmin"
+import SidebarAdmin from "./SidebarAdmin"
 
 export default function page() {
   // Fetching user data to determine if the user is an admin
