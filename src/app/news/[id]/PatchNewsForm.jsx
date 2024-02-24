@@ -31,12 +31,12 @@ const postnews = async (newsData, id) => {
 
     if (id) {
       await axios.patch(
-        `https://api.unchiudaanclasses.com/api/news/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/news/${id}`,
         formData,
         config
       );
     } else {
-      await axios.post(`https://api.unchiudaanclasses.com/api/news`, formData, config);
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/news`, formData, config);
     }
 
     toast.dismiss(loadingToast);

@@ -1,7 +1,7 @@
 export default async function getCurrentAffairs(id) {
   try {
     const response = await fetch(
-      `https://api.unchiudaanclasses.com/api/currentaffairs/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs/${id}`,
       { cache: 'no-store' }
     );
     const data = await response.json();

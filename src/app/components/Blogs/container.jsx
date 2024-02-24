@@ -20,7 +20,7 @@ function BlogComp({ date, title, id, category, updatedDate , set_no }) {
                width={500}
                height={500}
                 className="w-full rounded-xl"
-                src={`https://api.unchiudaanclasses.com/img/affairs/uchiudan.png`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/uchiudan.png`}
                 alt="Blog Cover"
               />
               <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">

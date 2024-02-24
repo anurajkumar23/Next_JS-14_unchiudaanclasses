@@ -14,7 +14,7 @@ const NewsCard = () => {
     fetchData(currentPage); // Trigger a re-fetch of data after deletion
   };
   const fetchData = (page) => {
-    let apiUrl = `https://api.unchiudaanclasses.com/api/news?&page=${page}&limit=${postsPerPage}`;
+    let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/news?&page=${page}&limit=${postsPerPage}`;
 
     axios
       .get(apiUrl)

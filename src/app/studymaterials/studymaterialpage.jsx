@@ -33,7 +33,7 @@ function StudyMaterial({
             <div className="relative">
               <img
                 className="w-full rounded-xl"
-                src={`https://api.unchiudaanclasses.com/img/affairs/uchiudan.png`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/uchiudan.png`}
                 alt="Blog Cover"
               />
               <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
@@ -88,7 +88,7 @@ function StudyMaterials({userData}) {
     }
 
     const pdfid = userData.pdfs;
-    const apiUrl = `https://api.unchiudaanclasses.com/api/pdfs/`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs/`;
 
     const fetchPdfDataById = async (id) => {
       try {

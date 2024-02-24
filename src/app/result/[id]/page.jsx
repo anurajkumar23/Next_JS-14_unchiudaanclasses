@@ -91,7 +91,7 @@ export default function ResultPage() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/test/${id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/test/${id}`
         );
         const { name, result } = response.data.data.test;
 

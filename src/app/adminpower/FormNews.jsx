@@ -20,7 +20,7 @@ const postnews = async (newsData) => {
     formData.append("photo", newsData.photo);
 
     await axios.post(
-      `https://api.unchiudaanclasses.com/api/news`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/news`,
       formData,
       {
         headers: {

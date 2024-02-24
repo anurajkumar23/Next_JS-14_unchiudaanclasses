@@ -23,7 +23,7 @@ const Pdfpage = () => {
     };
   
     const fetchData = (page, category, status) => {
-      let apiUrl = `https://api.unchiudaanclasses.com/api/pdfs?page=${page}&limit=${postsPerPage}`;
+      let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs?page=${page}&limit=${postsPerPage}`;
   
       if (category) {
         apiUrl += `&category=${category}`;
@@ -47,7 +47,7 @@ const Pdfpage = () => {
     };
   
     useEffect(() => {
-      let apiUrl = `https://api.unchiudaanclasses.com/api/pdfs`;
+      let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs`;
   
       if (selectedCategory !== null) {
         apiUrl += `/?category=${selectedCategory}`;
@@ -140,6 +140,19 @@ const Pdfpage = () => {
               </div>
             ) : (
               pdfs.map((pdf) => {
+                const createdAt = new Date(pdf.createdAt);
+                const updatedAt = new Date(pdf.updatedAt);
+                {
+                  /* createdAt.setDate(createdAt.getDate() + 1); */
+                }
+                const formattedDate = createdAt.toLocaleString("default", {
+                  day: "numeric",
+                  month: "long",
+                });
+                const updatedDate = updatedAt.toLocaleString("default", {
+                  day: "numeric",
+                  month: "long",
+                });
               
                 return (
                   <BlogComps

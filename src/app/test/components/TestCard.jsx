@@ -20,7 +20,7 @@ export default function TestCard() {
             if (Date.now() >= item.mainend) {
               try {
                 const response = await axios.delete(
-                  `https://api.unchiudaanclasses.com/api/user/${userData._id}/test/delete/${item._id}`
+                  `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userData._id}/test/delete/${item._id}`
                 );
                 // console.log("Object deleted successfully:", response.data);
               } catch (error) {
@@ -41,7 +41,7 @@ export default function TestCard() {
       fetchData(currentPage); // Trigger a re-fetch of data after deletion
     };
     const fetchData = (page) => {
-      let apiUrl = `https://api.unchiudaanclasses.com/api/test?&page=${page}&limit=${postsPerPage}`;
+      let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/test?&page=${page}&limit=${postsPerPage}`;
   
       axios
         .get(apiUrl)

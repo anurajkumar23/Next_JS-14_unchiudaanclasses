@@ -26,7 +26,7 @@ const CurrentAffairsCard = () => {
   };
 
   const fetchData = (page, category) => {
-    let apiUrl = `https://api.unchiudaanclasses.com/api/currentaffairs`;
+    let apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs`;
 
     if (category) {
       apiUrl += `?category=${category}&page=${page}&limit=${postsPerPage}`;

@@ -39,7 +39,7 @@ const Sidebar_pdf = ({
 
   useEffect(() => {
     axios
-      .get(`https://api.unchiudaanclasses.com/api/currentaffairs/lastestAffairs`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs/lastestAffairs`)
       .then((response) => {
         setAffairs(response.data.data.affairs);
       })

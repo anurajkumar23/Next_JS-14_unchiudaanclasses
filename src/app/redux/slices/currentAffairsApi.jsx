@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const currentAffairsApi = createApi({
     reducerPath: "currentAffairs",
-    baseQuery: fetchBaseQuery({ baseUrl: "https://api.unchiudaanclasses.com/api" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "${process.env.NEXT_PUBLIC_BACKEND_URL}" }),
     endpoints: (builder) => ({
         getLastestCurrentAffairs: builder.query({
             query: () => "/currentaffairs/lastestAffairs",

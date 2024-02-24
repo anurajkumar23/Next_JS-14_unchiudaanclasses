@@ -23,7 +23,7 @@ const postaffairs = async (affairsData) => {
   try {
     loadingToast = toast.loading("Posting CurrentAffairs...");
     await axios.post(
-      `https://api.unchiudaanclasses.com/api/currentaffairs`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs`,
       formData,
       {
         headers: {

@@ -21,7 +21,7 @@ const postpdf = async (pdfData) => {
   try {
      loadingToast = toast.loading("Posting PDF...");
     await axios.post(
-      `https://api.unchiudaanclasses.com/api/pdfs`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs`,
       formData,
       {
         headers: {

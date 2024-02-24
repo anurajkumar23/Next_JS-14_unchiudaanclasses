@@ -44,7 +44,7 @@ function LoginForm() {
 
   const loginwithGoogle = () => {
     window.open(
-      `https://api.unchiudaanclasses.com/api/oauth/google/callback`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth/google/callback`
     );
   };
   const login = async (userData) => {
@@ -55,7 +55,7 @@ function LoginForm() {
 
       // }
       const response = await axios.post(
-        `https://api.unchiudaanclasses.com/api/user/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login`,
         userData,
         { withCredentials: true }
       );

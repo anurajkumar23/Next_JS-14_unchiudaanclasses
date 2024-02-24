@@ -36,7 +36,7 @@ export function BlogComps({
       try {
         loadingToast = toast.loading("Deleting CurrentAffairs...");
         const response = await axios.delete(
-          `https://api.unchiudaanclasses.com/api/currentaffairs/${id}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs/${id}`,
           {
             headers: {
               Authorization: token,
@@ -90,7 +90,7 @@ export function BlogComps({
               width={500}
               height={500}
                 className="w-full rounded-xl"
-                src={`https://api.unchiudaanclasses.com/img/affairs/uchiudan.png`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/uchiudan.png`}
                 alt="Blog Cover"
               />
               <p className="absolute top-0 bg-[#ffef39] text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">

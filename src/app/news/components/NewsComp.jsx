@@ -42,7 +42,7 @@ function NewsComp({ newsItems, onNewsDelete }) {
       try {
         loadingToast = toast.loading("Deleting News..."); // Display loading toast
         const response = await axios.delete(
-          `https://api.unchiudaanclasses.com/api/news/${newsId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/news/${newsId}`,
           {
             headers: {
               Authorization: token,
@@ -123,7 +123,7 @@ function NewsComp({ newsItems, onNewsDelete }) {
                   width={500}
                   height={500}
                     className="w-full h-[200px] object-cover rounded-xl"
-                    src={`https://api.unchiudaanclasses.com/img/news/${
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/news/${
                       news.photo
                     }`}
                     alt={`logo`}

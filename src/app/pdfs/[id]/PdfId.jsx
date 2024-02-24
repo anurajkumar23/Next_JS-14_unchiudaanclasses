@@ -42,7 +42,7 @@ const PdfId = ({ pdfDetails }) => {
     const alreadybuy = userData.pdfs.includes(pdfDetails._id);
 
     if (pdfDetails.status === "free" || alreadybuy) {
-      const downloadLink = `https://api.unchiudaanclasses.com/api/pdfs/download-pdf/${id}`;
+      const downloadLink = `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs/download-pdf/${id}`;
 
       const anchor = document.createElement("a");
       anchor.href = downloadLink;
@@ -53,7 +53,7 @@ const PdfId = ({ pdfDetails }) => {
     } else {
       try {
         const res = await axios.post(
-          `https://api.unchiudaanclasses.com/api/payment/createOrderId`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/payment/createOrderId`,
           {
             name: userData.firstname,
             email: userData.email,
@@ -69,7 +69,7 @@ const PdfId = ({ pdfDetails }) => {
         cashfree
           .checkout({
             paymentSessionId: res.data.paymentSessionId,
-            returnUrl: `https://api.unchiudaanclasses.com/api/payment/NRRTWSD/unchiudan/pdf/${userData._id}/${id}`,
+            returnUrl: `${process.env.NEXT_PUBLIC_BACKEND_URL}/payment/NRRTWSD/unchiudan/pdf/${userData._id}/${id}`,
             // returnUrl: `https://www.youtube.com/`,
             // redirectTarget: "_blank",
           })
@@ -120,7 +120,7 @@ const PdfId = ({ pdfDetails }) => {
               width={500}
               height={500}
               alt="meow"
-              src={`https://api.unchiudaanclasses.com/img/pdf/${pdfDetails.photo}`}
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/pdf/${pdfDetails.photo}`}
               className="w-full mx-auto rounded-lg"
             />
           </div>

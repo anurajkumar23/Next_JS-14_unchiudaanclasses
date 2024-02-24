@@ -19,11 +19,11 @@ export const metadata = {
     card: 'summary_large_image',
   },
   openGraph: {
-    images: 'https://unchiudaanclasses.com/uchiudan.png',
+    images: '${process.env.NEXT_PUBLIC_FRONTEND_URL}/uchiudan.png',
     width: 800,
     height: 600,
   },
-  // metadataBase: new URL("https://unchiudaanclasses.com"),
+  // metadataBase: new URL("${process.env.NEXT_PUBLIC_FRONTEND_URL}"),
   // verification:{
   //   google: "google-site-verification=wjJCnSurHqFDah3rhIg7OZxlVqiQ8mg33S0ixhqLuJA",
   // }

@@ -23,7 +23,7 @@ export async function generateMetadata({ params: { id } }) {
       canonical: `/news/${id}`
     },
     openGraph: {
-      images: `https://api.unchiudaanclasses.com/img/news/${news.photo}`,
+      images: `${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/news/${news.photo}`,
       width: 900,
       height: 450,
     },
@@ -63,7 +63,7 @@ async function NewsPage({ params: { id } }) {
               width={500}
               height={500}
               alt="meow"
-              src={`https://api.unchiudaanclasses.com/img/news/${news.photo}`}
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/news/${news.photo}`}
               className="w-full mx-auto rounded-lg"
             />
           </div>

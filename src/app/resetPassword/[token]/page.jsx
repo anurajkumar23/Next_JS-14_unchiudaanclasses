@@ -18,7 +18,7 @@ function ResetPassword() {
   const resetPassword = async (userData, token) => {
     try {
       const response = await fetch(
-        `https://api.unchiudaanclasses.com/api/user/resetPassword/${token}`, // Changed axios to fetch
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/resetPassword/${token}`, // Changed axios to fetch
         {
           method: "PATCH",
           headers: {

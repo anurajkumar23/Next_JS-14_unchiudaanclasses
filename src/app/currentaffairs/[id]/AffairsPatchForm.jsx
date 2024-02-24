@@ -24,7 +24,7 @@ const patchAffairs = async (affairsData, id) => {
     const loadingToast = toast.loading("Updating CurrentAffairs...");
 
     await axios.patch(
-      `https://api.unchiudaanclasses.com/api/currentaffairs/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/currentaffairs/${id}`,
       formData,
       {
         headers: {

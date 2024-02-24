@@ -13,7 +13,7 @@ const NewsIds = ({news}) => {
   //   const fetchData = async () => {
   //     try {
   //       const response = await axios.get(
-  //         `https://api.unchiudaanclasses.com/api/news/${id}`
+  //         `${process.env.NEXT_PUBLIC_BACKEND_URL}/news/${id}`
   //       );
   //       setNews(response.data.data.news);
   //     } catch (error) {

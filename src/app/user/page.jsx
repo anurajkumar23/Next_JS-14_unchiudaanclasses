@@ -59,7 +59,7 @@ function UserSettings() {
 
     try {
       const response = await axios.patch(
-        `https://api.unchiudaanclasses.com/api/user/updateMe`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/updateMe`,
         settingsData,
         {
           headers: {
@@ -96,7 +96,7 @@ function UserSettings() {
 
     try {
       const response = await axios.patch(
-        `https://api.unchiudaanclasses.com/api/user/updateMyPassword`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/updateMyPassword`,
         {
           passwordCurrent: passwordData.currentPassword,
           password: passwordData.newPassword,

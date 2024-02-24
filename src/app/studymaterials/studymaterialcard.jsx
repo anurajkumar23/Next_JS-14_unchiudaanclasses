@@ -16,7 +16,7 @@ function StudyMaterialsPage({ userData }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/pdfs/${id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs/${id}`
         );
         console.log("🚀 ~ StudyMaterialsPage ~ pdfDetails:", response.data)
         setPdfDetails(response.data.data.pdf);

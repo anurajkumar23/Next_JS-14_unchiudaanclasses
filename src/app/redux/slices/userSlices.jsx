@@ -4,7 +4,7 @@ export const userSlice = createApi({
   reducerPath: "api",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://api.unchiudaanclasses.com/api",
+    baseUrl: "${process.env.NEXT_PUBLIC_BACKEND_URL}",
     prepareHeaders: (headers, { getState }) => {
       // Check if we are in the browser
       if (typeof window === "undefined") {

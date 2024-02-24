@@ -19,7 +19,7 @@ export async function generateMetadata({ params: { id } }) {
         canonical: `/currentaffairs/${id}`
       },
     openGraph: {
-      images: `https://api.unchiudaanclasses.com/img/affairs/${affairDetails.photo}`,
+      images: `${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/${affairDetails.photo}`,
       width: 900,
       height: 450,
     },

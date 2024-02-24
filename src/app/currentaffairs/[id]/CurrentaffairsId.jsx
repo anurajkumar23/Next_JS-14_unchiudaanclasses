@@ -83,7 +83,7 @@ export default function CurrentaffairsId({affairDetailsData}) {
               width={500}
               height={500}
               alt={`${affairDetailsData.photo}`}
-              src={`https://api.unchiudaanclasses.com/img/affairs/${affairDetailsData.photo}`}
+              src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/${affairDetailsData.photo}`}
               className="w-full mx-auto rounded-lg"
             />
           </div>

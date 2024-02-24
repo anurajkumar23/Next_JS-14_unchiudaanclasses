@@ -26,7 +26,7 @@ export async function generateMetadata({ params: { id } }) {
         canonical: `/pdfs/${id}`
       },
       openGraph: {
-        images: `https://api.unchiudaanclasses.com/img/pdf/${pdfDetails.photo}`,
+        images: `${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/pdf/${pdfDetails.photo}`,
         width: 900,
         height: 450,
       },

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useGetUserQuery } from "../redux/slices/userSlices";
 import ErrorPage from "../Errorpage";
-import SidebarAdmin from "./SidebarAdmin"
+// import SidebarAdmin from "./SidebarAdmin"
 
 export default function page() {
   // Fetching user data to determine if the user is an admin
@@ -28,7 +28,7 @@ export default function page() {
     try {
       const token = localStorage.getItem("jwt_token");
       const response = await axios.get(
-        `https://api.unchiudaanclasses.com/api/user`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user`,
         {
           headers: {
             Authorization: token,
@@ -54,7 +54,7 @@ export default function page() {
       try {
         const token = localStorage.getItem("jwt_token");
         const response = await axios.delete(
-          `https://api.unchiudaanclasses.com/api/news/autodelete`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/news/autodelete`,
           {
             headers: {
               Authorization: token,

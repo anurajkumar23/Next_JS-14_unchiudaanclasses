@@ -36,7 +36,7 @@ const Sidebar = ({ setSelectedCategory, setSelectedStatus, togglefilter }) => {
 
   useEffect(() => {
     axios
-      .get(`https://api.unchiudaanclasses.com/api/pdfs/lastestPdfs`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs/lastestPdfs`)
       .then((response) => {
         setPdfs(response.data.data.pdf);
       })

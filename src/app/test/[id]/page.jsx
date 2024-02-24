@@ -22,7 +22,7 @@ export default function StartTest() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/test/${id}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/test/${id}`
         );
         console.log(response, "😅😅😅😅")
 
@@ -58,7 +58,7 @@ export default function StartTest() {
       if (!userData.googleLogIn) {
         const token = localStorage.getItem("jwt_token");
         const response = await fetch(
-          `https://api.unchiudaanclasses.com/api/user/authenticated`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/authenticated`,
           {
             method: "GET",
             headers: {
@@ -80,7 +80,7 @@ export default function StartTest() {
         }
       } else {
         const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/user/${userid}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userid}`
         );
         if (response.data.data.user && response.data.data.user.test) {
           const userData = response.data.data;

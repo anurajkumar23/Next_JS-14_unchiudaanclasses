@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     onSubmit: async (values) => {
       try {
         const response = await axios.post(
-          `https://api.unchiudaanclasses.com/api/user/forgotPassword`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/forgotPassword`,
           values
         );
 

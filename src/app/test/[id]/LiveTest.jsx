@@ -28,7 +28,7 @@ export function LiveTest({ userData }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://api.unchiudaanclasses.com/api/test/${id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/test/${id}`);
         setLiveTest(response.data.data.test);
         if (!localStorage.getItem("TotalTime")) {
           localStorage.setItem("TotalTime", response.data.data.test.testtime * 60);
@@ -51,7 +51,7 @@ export function LiveTest({ userData }) {
           try {
             const userStopTime = addMinutesToCurrentTime(liveTest.testtime);
             const response = await axios.patch(
-              `https://api.unchiudaanclasses.com/api/test/user/${userid}`,
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/test/user/${userid}`,
               {
                 test_id: id,
                 userstart: Date.now(),
@@ -160,7 +160,7 @@ export function LiveTest({ userData }) {
     
     try {
       const response = await axios.patch(
-        `https://api.unchiudaanclasses.com/api/test/user/${userid}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/test/user/${userid}`,
         {
           test_id: id,
           isSubmit: true,
@@ -177,7 +177,7 @@ export function LiveTest({ userData }) {
       const username = `${userData.user.firstname} ${userData.user.lastname}`
       const useremail = userData.user.email;
       // console.log("alling" , "dsdsdsdssdsdsds")
-      const response2 = await axios.patch(`https://api.unchiudaanclasses.com/api/test/submit/${id}`, {
+      const response2 = await axios.patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/test/submit/${id}`, {
         userid: userid,
         username: username,
         useremail,
@@ -208,7 +208,7 @@ export function LiveTest({ userData }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://api.unchiudaanclasses.com/api/user/${userid}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userid}`);
         if (response.data.data.user && response.data.data.user.test) {
           const userData = response.data.data;
           const currenttest = userData.user.test.find((item) => item.test_id === id);

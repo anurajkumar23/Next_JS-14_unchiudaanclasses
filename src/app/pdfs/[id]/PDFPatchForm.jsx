@@ -21,7 +21,7 @@ const patchpdf = async (pdfData, id) => {
   try {
     loadingToast = toast.loading("Updating PDF...");
     await axios.patch(
-      `https://api.unchiudaanclasses.com/api/pdfs/${id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/pdfs/${id}`,
 
       formData,
       {

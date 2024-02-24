@@ -23,7 +23,7 @@ function SignupForm() {
       loadingToast = toast.loading("Creating account...");
   
       const response = await axios.post(
-        `https://api.unchiudaanclasses.com/api/user/signup`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/signup`,
         userData,
         { withCredentials: true }
       );

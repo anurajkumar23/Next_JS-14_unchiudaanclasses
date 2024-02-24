@@ -41,7 +41,7 @@ export default function Navbar() {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://api.unchiudaanclasses.com/api/user`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/user`
         );
         if (response.ok) {
           const userData = await response.json();
@@ -63,7 +63,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get(`https://api.unchiudaanclasses.com/api/user/logout`);
+      await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/logout`);
       localStorage.clear();
       window.location.href = "/";
     } catch (error) {
@@ -72,8 +72,7 @@ export default function Navbar() {
   };
   const googlelogout = async () => {
     const email = userData.email;
-    // window.open(`https://api.unchiudaanclasses.com/api/logout`, "_self");
-    await axios.post(`https://api.unchiudaanclasses.com/api/logout`, { email });
+    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, { email });
   };
 
   return (

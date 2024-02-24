@@ -66,7 +66,7 @@ function testComp({ testsItems,userData, onTestsDelete }) {
       try {
         loadingToast = toast.loading("Deleting Test..."); // Display loading toast
         const response = await axios.delete(
-          `https://api.unchiudaanclasses.com/api/test/${testsId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/test/${testsId}`,
           {
             headers: {
               Authorization: token,
@@ -168,7 +168,7 @@ function testComp({ testsItems,userData, onTestsDelete }) {
                   width={500}
                   height={500}
                     className="w-full h-[200px] object-cover rounded-xl"
-                    src={`https://api.unchiudaanclasses.com/img/usertest/${
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/usertest/${
                       test.photo
                     }`}
                     alt={`logo`}
