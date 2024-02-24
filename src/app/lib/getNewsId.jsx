@@ -1,7 +1,8 @@
 export default async function getNewsId(id) {
   try {
     const response = await fetch(
-      `https://api.unchiudaanclasses.com/api/news/${id}`
+      `https://api.unchiudaanclasses.com/api/news/${id}`,
+      { cache: 'no-store' }
     );
     const data = await response.json();
 

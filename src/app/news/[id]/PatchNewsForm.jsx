@@ -7,6 +7,7 @@ import JoditEditor from 'jodit-react';
 import he from 'he';
 
 const postnews = async (newsData, id) => {
+ 
   const token = localStorage.getItem("jwt_token");
   let loadingToast;
   try {
@@ -115,7 +116,7 @@ const FormNews = ({ details, }) => {
             id="heading"
             name="heading"
             value={formData.heading}
-            onChange={(newContent) => handleEditorChange("heading", newContent)}
+            onChange={(newContent) =>handleEditorChange("heading", newContent)}
             className="w-full px-3 py-2 border rounded"
             required
           />
