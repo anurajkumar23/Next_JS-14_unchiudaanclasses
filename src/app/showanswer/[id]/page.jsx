@@ -44,7 +44,7 @@ export default function ShowAnswer() {
     // Create a new instance of jsPDF
     const pdf = new jsPDF("p", "mm", "a4", "true");
 
-    const pageHeight = 1130; // Height of A4 page in mm
+    const pageHeight = 11300; // Height of A4 page in mm
     let yOffset = 0;
     let currentPage = 0;
 

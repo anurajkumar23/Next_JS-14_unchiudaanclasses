@@ -140,19 +140,7 @@ const Pdfpage = () => {
               </div>
             ) : (
               pdfs.map((pdf) => {
-                const createdAt = new Date(pdf.createdAt);
-                const updatedAt = new Date(pdf.updatedAt);
-                {
-                  /* createdAt.setDate(createdAt.getDate() + 1); */
-                }
-                const formattedDate = createdAt.toLocaleString("default", {
-                  day: "numeric",
-                  month: "long",
-                });
-                const updatedDate = updatedAt.toLocaleString("default", {
-                  day: "numeric",
-                  month: "long",
-                });
+              
                 return (
                   <BlogComps
                     key={pdf._id}
