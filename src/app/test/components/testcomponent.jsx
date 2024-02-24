@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import { MdOutlineDelete } from "react-icons/md";
 import axios from "axios";
@@ -232,6 +233,13 @@ function testComp({ testsItems,userData, onTestsDelete }) {
                     </button>
                   </Link>
                   {showResultButton}
+                  {role ? (
+                    <Link href={`/showanswer/${test._id}`}>
+                      <button className="mt-4 text-md w-full text-white bg-indigo-400 py-1 px-3 rounded-xl">
+                        Show Answer
+                      </button>
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             </div>
