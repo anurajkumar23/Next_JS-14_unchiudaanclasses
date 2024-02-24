@@ -22,6 +22,14 @@ export async function generateMetadata({ params: { id } }) {
   return {
     title: decodeAndRemoveHtml(pdfDetails.name),
     description: decodeAndRemoveHtml(pdfDetails.description),
+    alternates:{
+        canonical: `/pdfs/${id}`
+      },
+      openGraph: {
+        images: `https://api.unchiudaanclasses.com/img/pdf/${pdfDetails.photo}`,
+        width: 900,
+        height: 450,
+      },
   };
 }
 

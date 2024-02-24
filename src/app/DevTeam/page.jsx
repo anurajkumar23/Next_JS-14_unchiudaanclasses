@@ -5,6 +5,9 @@ import HighlightText from "../components/Home/core/Homepage/HighlightText";
 export const metadata = {
     title: 'Developers of ऊँची उड़ान',
     description: 'Meet the talented developers behind ऊँची उड़ान. Get to know Anuraj Kumar, Ishu Singh, Kingshuk Mondal, the dedicated individuals who have contributed to building this platform. Connect with them through their social media links to learn more about their work and expertise.',
+    alternates:{
+      canonical: `/DevTeam`
+    },
   }
   
 

@@ -5,6 +5,9 @@ export const metadata = {
   title: "Monthly PDFs / मासिक PDF",
   description:
     "Get Latest update Free/पैड PDFs of current Affairs",
+    alternates:{
+      canonical: `/pdfs`
+    },
 };
 
 function Downloads() {

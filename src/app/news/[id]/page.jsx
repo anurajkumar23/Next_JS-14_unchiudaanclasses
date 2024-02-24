@@ -19,9 +19,9 @@ export async function generateMetadata({ params: { id } }) {
   return {
     title: decodeAndRemoveHtml(news.heading),
     description: decodeAndRemoveHtml(news.article),
-    // alternates:{
-    //   canonical: `/news/${id}`
-    // },
+    alternates:{
+      canonical: `/news/${id}`
+    },
     openGraph: {
       images: `https://api.unchiudaanclasses.com/img/news/${news.photo}`,
       width: 900,
@@ -30,11 +30,8 @@ export async function generateMetadata({ params: { id } }) {
   };
 }
 
-
-
 async function NewsPage({ params: { id } }) {
   const news = await getNewsId(id);
-
 
   if (!news) {
     return (
@@ -70,7 +67,7 @@ async function NewsPage({ params: { id } }) {
               className="w-full mx-auto rounded-lg"
             />
           </div>
-      
+
           <p
             className="mt-4 text-justify text-lg "
             dangerouslySetInnerHTML={{
@@ -79,7 +76,7 @@ async function NewsPage({ params: { id } }) {
           />
           {/* <SocialMedia /> */}
         </div>
-        <NewsIds news= {news}/>
+        <NewsIds news={news} />
       </div>
     </>
   );

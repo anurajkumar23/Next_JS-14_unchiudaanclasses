@@ -8,10 +8,11 @@ import he from "he";
 import { FaDownload, FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
 import PDFPatchForm from "./PDFPatchForm";
+import { useParams } from "next/navigation";
 
 const PdfId = ({ pdfDetails }) => {
   const { data: userData } = useGetUserQuery();
-
+  const { id } = useParams();
   let role;
 
   if (userData) {

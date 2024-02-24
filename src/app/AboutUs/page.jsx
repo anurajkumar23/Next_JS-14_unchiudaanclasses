@@ -4,6 +4,9 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope } from 'reac
 export const metadata = {
     title: 'हमारे बारे में (About Us)',
     description: 'ऊँची उड़ान एक स्मार्ट और शिक्षाप्रद स्रोत है जो आपको सबसे हाल के और महत्वपूर्ण घटनाओं, क्विज, समाचार/ब्लॉग लेखों, और पीडीएफ प्रारूप की पढ़ाई करने में मदद करता है। यहाँ आप युवाओं को प्रतियोगिता परीक्षाओं के लिए तैयार करने के लिए नवीनतम और उपयोगी सामग्री प्राप्त कर सकते हैं।',
+    alternates:{
+      canonical: `/AboutUs`
+    },
   }
   
 

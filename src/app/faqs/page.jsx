@@ -1,6 +1,9 @@
 export const metadata = {
     title: 'Frequently Asked Questions (FAQ)',
     description: 'Our FAQ page provides answers to common queries about Daily Quiz, News/Blog, Current Affairs, Monthly PDFs, and practicing Daily Quiz. Get detailed explanations to enhance your understanding of these features and make the most out of our platform.',
+    alternates:{
+      canonical: `/faqs`
+    },
   }
   
 

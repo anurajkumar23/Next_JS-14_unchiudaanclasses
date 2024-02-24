@@ -5,6 +5,9 @@ import Template from "../login/Template"
 export const metadata = {
   title: 'Signup Page',
   description: 'Join us for Latest update Free/पैड PDFs of current Affairs',
+  alternates:{
+    canonical: `/signup`
+  },
 }
 
 

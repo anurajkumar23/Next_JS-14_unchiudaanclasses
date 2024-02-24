@@ -15,6 +15,14 @@ export async function generateMetadata({ params: { id } }) {
   return {
     title: removeHtmlTags(affairDetails.topic),
     description: removeHtmlTags(affairDetails.description),
+        alternates:{
+        canonical: `/currentaffairs/${id}`
+      },
+    openGraph: {
+      images: `https://api.unchiudaanclasses.com/img/affairs/${affairDetails.photo}`,
+      width: 900,
+      height: 450,
+    },
   };
 }
 

@@ -7,6 +7,9 @@ export const metadata = {
   title: "Live Test / लाइव टेस्ट",
   description:
     "Get Live Test / लाइव टेस्ट of Current Affairs..",
+    alternates:{
+      canonical: `/test`
+    },
 };
 
 

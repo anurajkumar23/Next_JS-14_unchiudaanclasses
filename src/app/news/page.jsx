@@ -4,6 +4,9 @@ import NewsCard from "./components/NewsCard";
 export const metadata = {
   title: "News / Blog",
   description: "नवीनतम घटनाओं के साथ अपडेट रहें",
+  alternates: {
+    canonical: `/news`,
+  },
 };
 
 function News() {

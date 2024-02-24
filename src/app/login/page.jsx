@@ -5,6 +5,9 @@ import Template from "./Template"
 export const metadata = {
   title: 'Login Page',
   description: 'Join us for Latest update Free/पैड PDFs of current Affairs',
+  alternates:{
+    canonical: `/login`
+  },
 }
 
 function Login() {
