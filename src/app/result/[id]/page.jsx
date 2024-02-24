@@ -9,6 +9,7 @@ import html2canvas from "html2canvas/dist/html2canvas";
 import jsPDF from "jspdf";
 import Image from "next/image";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
+import he from "he";
 
 export default function ResultPage() {
   const { data: userData} = useGetUserQuery();
@@ -33,39 +34,54 @@ export default function ResultPage() {
     role = false;
   }
 
-  const downloadPDF = () => {
-    const capture = document.querySelector(".result-table");
+  const downloadPDF = async () => {
     SetLoader(true);
 
-    html2canvas(capture).then((canvas) => {
-      const imgData = canvas.toDataURL("img/png");
-      const pdf = new jsPDF("p", "mm", "a4", "true");
-      const pdfWidth = pdf.internal.pageSize.getWidth(); // You can adjust the scaling factor as needed
-      const pdfHeight = pdf.internal.pageSize.getHeight(); // You can adjust the scaling factor as needed
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 30;
-      pdf.addImage(
-        imgData,
-        "PNG",
-        imgX,
-        imgY,
-        imgWidth * ratio,
-        imgHeight * ratio
-      );
+    // Get the total height of the content
+    const capture = document.querySelector(".result-table");
+    const totalHeight = capture.scrollHeight;
 
-      SetLoader(false);
-      pdf.save("Results.pdf");
-    });
+    // Create a new instance of jsPDF
+    const pdf = new jsPDF("p", "mm", "a4", "true");
+
+    const pageHeight = 1130; // Height of A4 page in mm
+    let yOffset = 0;
+    let currentPage = 0;
+
+    while (yOffset < totalHeight) {
+      // Use html2canvas to capture the content of each page
+      const canvas = await html2canvas(capture, {
+        windowHeight: totalHeight,
+        y: yOffset,
+      });
+
+      // Calculate the width and height for the image based on the aspect ratio
+      const imgWidth = 215; // Width of A4 page in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Add a new page to the PDF
+      if (currentPage > 0) {
+        pdf.addPage();
+      }
+
+      // Add the image to the PDF with a margin at the bottom
+      pdf.addImage(canvas, "PNG", 0, 0, imgWidth, imgHeight);
+
+      // Move to the next portion of the content
+      yOffset += pageHeight;
+      currentPage++;
+    }
+
+    // Save the PDF
+    pdf.save("Result.pdf");
+
+    SetLoader(false);
   };
 
   function decodeHtmlEntities(html) {
-    var txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    // Remove HTML tags using a regular expression
-    var plainText = txt.value.replace(/<[^>]*>/g, "");
+    const decodedHtml = he.decode(html);
+    // Remove HTML tags
+    const plainText = decodedHtml.replace(/<[^>]*>?/gm, "");
     return plainText;
   }
 

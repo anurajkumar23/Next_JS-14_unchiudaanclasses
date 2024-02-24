@@ -36,55 +36,47 @@ export default function ShowAnswer() {
 
   const downloadAnswers = async () => {
     SetLoader(true);
-  
+
     // Get the total height of the content
     const capture = document.querySelector(".Answer-table");
     const totalHeight = capture.scrollHeight;
-  
+
     // Create a new instance of jsPDF
     const pdf = new jsPDF("p", "mm", "a4", "true");
-  
-    let currentPage = 0;
-    const pageHeight = 900; // Adjust this value as needed
+
+    const pageHeight = 1130; // Height of A4 page in mm
     let yOffset = 0;
-  
+    let currentPage = 0;
+
     while (yOffset < totalHeight) {
       // Use html2canvas to capture the content of each page
       const canvas = await html2canvas(capture, {
-        windowHeight: pageHeight,
+        windowHeight: totalHeight,
         y: yOffset,
       });
-  
+
       // Calculate the width and height for the image based on the aspect ratio
-      const imgWidth = 200; // Width of A4 page in mm
+      const imgWidth = 215; // Width of A4 page in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-      // Convert the canvas to an image
-      const imgData = canvas.toDataURL("image/png");
-  
-      // Add the image to the PDF
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-  
-      // If there are more pages, add a new page to the PDF
-      pdf.addPage();
-  
+
+      // Add a new page to the PDF
+      if (currentPage > 0) {
+        pdf.addPage();
+      }
+
+      // Add the image to the PDF with a margin at the bottom
+      pdf.addImage(canvas, "PNG", 0, 0, imgWidth, imgHeight);
+
       // Move to the next portion of the content
       yOffset += pageHeight;
       currentPage++;
     }
-  
+
     // Save the PDF
     pdf.save("Answers.pdf");
-  
+
     SetLoader(false);
   };
-  
-  
-  
-  
-  
-  
-  
 
   return (
     <>
@@ -107,7 +99,7 @@ export default function ShowAnswer() {
                   height={150}
                   src={logo}
                   alt="unchiudaan"
-                    className="w-[150px] height-[150px]"
+                  className="w-[150px] height-[150px]"
                 />
               </div>
               <div className="  bg-white shadow-md pb-8 px-8 rounded-md">
