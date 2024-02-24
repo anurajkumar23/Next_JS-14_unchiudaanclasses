@@ -81,42 +81,34 @@ function StudyMaterials({userData}) {
   
   const [pdfs, setPdfs] = useState([]);
   
-  const pdfid = userData.pdfs; // Assuming this is a valid array of IDs
-  // console.log("🚀 ~ StudyMaterials ~ pdfid:", pdfid)
-
-
-  const apiUrl = `https://api.unchiudaanclasses.com/api/pdfs/`;
-
   useEffect(() => {
-    // Define a function to fetch PDF data by ID
+    if (!userData || !userData.pdfs || userData.pdfs.length === 0) {
+      // Handle the case when pdfid is not available
+      return;
+    }
+
+    const pdfid = userData.pdfs;
+    const apiUrl = `https://api.unchiudaanclasses.com/api/pdfs/`;
+
     const fetchPdfDataById = async (id) => {
-      console.log("🚀 ~ fetchPdfDataById ~ id:", id)
       try {
         const response = await axios.get(apiUrl + id);
-
-        // console.log(
-        //   "🚀 ~ file: StudyMaterials.jsx:75 ~ fetchPdfDataById ~ response.data.data.pdf:",
-        //   response.data.data.pdf
-        // );
-        return response.data.data.pdf
+        return response.data.data.pdf;
       } catch (error) {
         console.error(`Error fetching data for ID ${id}:`, error);
-        return null; // You might want to handle errors differently
+        return null;
       }
     };
 
-    // Use Promise.all to fetch data for all IDs
     const fetchDataForAllIds = async () => {
       const reversedPdfid = pdfid.slice().reverse(); 
       const promises = reversedPdfid.map((id) => fetchPdfDataById(id));
       const pdfData = await Promise.all(promises);
-    setPdfs(pdfData);
-  };
+      setPdfs(pdfData);
+    };
 
     fetchDataForAllIds();
-  }, [pdfid, apiUrl]);
-
-  console.log(pdfs, " sdsdsdsdsssdsf")
+  }, [userData]);
 
   return (
     <div className="mx-auto py-[7rem]">
