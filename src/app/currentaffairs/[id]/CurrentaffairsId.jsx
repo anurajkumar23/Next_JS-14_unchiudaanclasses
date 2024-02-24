@@ -1,6 +1,5 @@
 "use client";
-import { useParams } from "next/navigation";
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import "./quiz.css";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
@@ -17,25 +16,8 @@ import he from "he";
 
 
 
-export default function CurrentaffairsId() {
-  const [affairDetailsData,setAffairDetailsData] =useState()
-  const { id } = useParams();
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/currentaffairs/${id}`
-        );
-        setAffairDetailsData(response.data.data.affairs);
-        
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+export default function CurrentaffairsId({affairDetailsData}) {
 
-    fetchData();
-  }, [id]);
 
   const { data: userData} = useGetUserQuery();
   let role;

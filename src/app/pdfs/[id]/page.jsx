@@ -44,7 +44,7 @@ async function DownloadPage({ params: { id } }) {
 
   return (
     <div className="mx-auto py-[3rem]">
-      <PdfId />
+      <PdfId pdfDetails={pdfDetails} />
     </div>
   );
 }

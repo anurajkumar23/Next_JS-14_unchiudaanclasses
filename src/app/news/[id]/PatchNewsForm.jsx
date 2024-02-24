@@ -5,6 +5,9 @@ import { useState, useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
 // import JoditEditor from 'jodit-react';
 import he from 'he';
+import dynamic from 'next/dynamic';
+
+const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 const postnews = async (newsData, id) => {
  
@@ -111,7 +114,7 @@ const FormNews = ({ details, }) => {
           >
             Heading:
           </label>
-          {/* <JoditEditor
+          <JoditEditor
             ref={editor}
             id="heading"
             name="heading"
@@ -119,7 +122,7 @@ const FormNews = ({ details, }) => {
             onChange={(newContent) =>handleEditorChange("heading", newContent)}
             className="w-full px-3 py-2 border rounded"
             required
-          /> */}
+          />
         </div>
         <div className="mb-4">
           <label
@@ -128,7 +131,7 @@ const FormNews = ({ details, }) => {
           >
             Article:
           </label>
-          {/* <JoditEditor
+          <JoditEditor
             ref={editor}
             id="article"
             name="article"
@@ -136,7 +139,7 @@ const FormNews = ({ details, }) => {
             onChange={(newContent) => handleEditorChange("article", newContent)}
             className="w-full px-3 py-2 border rounded"
             required
-          /> */}
+          />
         </div>
         <div className="mb-4">
           <label

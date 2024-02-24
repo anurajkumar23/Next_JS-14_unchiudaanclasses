@@ -1,7 +1,8 @@
 export default async function getPdfId(id) {
   try {
     const response = await fetch(
-      `https://api.unchiudaanclasses.com/api/pdfs/${id}`
+      `https://api.unchiudaanclasses.com/api/pdfs/${id}`,
+      { cache: 'no-store' }
     );
     const data = await response.json();
 

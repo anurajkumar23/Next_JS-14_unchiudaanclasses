@@ -6,7 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { useGetUserQuery } from "../redux/slices/userSlices";
-// import ErrorPage from "../Errorpage";
+import ErrorPage from "../Errorpage";
 // import SidebarAdmin from "./SidebarAdmin"
 
 export default function page() {
@@ -104,7 +104,7 @@ export default function page() {
 
       )}
 
-      {/* {!role && <ErrorPage />} */}
+      {!role && <ErrorPage />}
     </>
   );
 };

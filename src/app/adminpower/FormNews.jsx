@@ -1,7 +1,10 @@
+"use client"
 import axios from "axios";
 import { useState, useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import JoditEditor from 'jodit-react';
+import dynamic from 'next/dynamic';
+
+const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 const postnews = async (newsData) => {
   const token = localStorage.getItem("jwt_token");

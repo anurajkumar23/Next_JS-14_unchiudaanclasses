@@ -1,9 +1,11 @@
+"use client"
 /* eslint-disable no-unused-vars */
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
-import JoditEditor from "jodit-react";
+import dynamic from 'next/dynamic';
 
+const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 const postaffairs = async (testData) => {
   const token = localStorage.getItem("jwt_token");
   // console.log("🚀 ~ postaffairs ~ testData:", testData);

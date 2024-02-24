@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
-import { useState ,useRef } from "react";
+import { useState, useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import he from 'he';
-import JoditEditor from "jodit-react";
+import he from "he";
+import dynamic from "next/dynamic";
 
+const JoditEditor = dynamic(() => import("jodit-react"), { ssr: false });
 const patchpdf = async (pdfData, id) => {
   const token = localStorage.getItem("jwt_token");
 
@@ -16,22 +17,20 @@ const patchpdf = async (pdfData, id) => {
   formData.append("pdf", pdfData.pdf);
   formData.append("status", pdfData.status);
   formData.append("price", pdfData.price);
-  let loadingToast
+  let loadingToast;
   try {
     loadingToast = toast.loading("Updating PDF...");
- await axios.patch(
-        `https://api.unchiudaanclasses.com/api/pdfs/${id}`,
+    await axios.patch(
+      `https://api.unchiudaanclasses.com/api/pdfs/${id}`,
 
       formData,
       {
         headers: {
-          
           Authorization: token, // Replace YOUR_AUTH_TOKEN_HERE with the actual token
         },
       }
     );
     toast.dismiss(loadingToast);
-
   } catch (error) {
     console.log(error);
     // Dismiss the loading toast if an error occurs
@@ -46,7 +45,7 @@ const PdfForm = ({ details }) => {
     category: details.category || "",
     photo: null,
     price: details.price || "",
-    description: details.description ? he.decode(details.description)  : "",
+    description: details.description ? he.decode(details.description) : "",
     pdf: null,
     comments: [],
     status: details.status || "free",
@@ -71,18 +70,19 @@ const PdfForm = ({ details }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-  try{
-    await patchpdf(
-      {
-        name: formData.name,
-        category: formData.category,
-        description: formData.description,
-        photo: formData.photo,
-        pdf: formData.pdf,
-        status: formData.status,
-        price: formData.price,
-      },
-      details._id);
+    try {
+      await patchpdf(
+        {
+          name: formData.name,
+          category: formData.category,
+          description: formData.description,
+          photo: formData.photo,
+          pdf: formData.pdf,
+          status: formData.status,
+          price: formData.price,
+        },
+        details._id
+      );
       window.location.reload();
 
       if (!details._id) {
@@ -93,11 +93,10 @@ const PdfForm = ({ details }) => {
       }
     } catch (error) {
       console.error(error);
-  
+
       // Show an error toast when an error occurs
       toast.error("Error posting PDF. Please try again.");
     }
-    
   };
   const handleEditorChange = (field, newContent) => {
     setFormData((prevData) => ({
@@ -112,7 +111,7 @@ const PdfForm = ({ details }) => {
         <div className="mb-4">
           <label className="block mb-2 text-gray-800">Name</label>
           <JoditEditor
-          ref={editor}
+            ref={editor}
             type="text"
             name="name"
             value={formData.name}
@@ -181,11 +180,13 @@ const PdfForm = ({ details }) => {
         <div className="mb-4">
           <label className="block mb-2 text-gray-800">Description</label>
           <JoditEditor
-           ref={editor}
+            ref={editor}
             name="description"
             value={formData.description}
             // onChange={handleChange}
-            onChange={(newContent) => handleEditorChange("description", newContent)}
+            onChange={(newContent) =>
+              handleEditorChange("description", newContent)
+            }
             className="border p-2 w-full h-32"
           ></JoditEditor>
         </div>

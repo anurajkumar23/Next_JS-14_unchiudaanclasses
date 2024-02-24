@@ -1,18 +1,16 @@
 "use client";
 import React from "react";
-import { useState, useEffect } from "react";
+
 import axios from "axios";
-import { useParams } from "next/navigation";
+
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 import he from "he";
 import { FaDownload, FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
-import PDFPatchForm from "./PDFPatchForm"
+import PDFPatchForm from "./PDFPatchForm";
 
-const PdfId = () => {
+const PdfId = ({ pdfDetails }) => {
   const { data: userData } = useGetUserQuery();
-  const { id } = useParams();
-  const [pdfDetails, setPdfDetails] = useState(null);
 
   let role;
 
@@ -25,21 +23,6 @@ const PdfId = () => {
   } else {
     role = false;
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.unchiudaanclasses.com/api/pdfs/${id}`
-        );
-        setPdfDetails(response.data.data.pdf);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
 
   const formatUpdatedAtDate = () => {
     const updatedAtDate = new Date(pdfDetails.updatedAt);

@@ -25,7 +25,7 @@ async function BlogsPage({ params: { id } }) {
       <div className=" py-[1rem] lg:py-[4rem]">
         <div className=" mx-4 ">
          
-           <CurrentaffairsId/>
+           <CurrentaffairsId affairDetailsData= {affairDetails}/>
         </div>
        
       </div>
