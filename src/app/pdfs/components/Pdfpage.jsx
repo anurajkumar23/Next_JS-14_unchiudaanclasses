@@ -16,7 +16,7 @@ const Pdfpage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState(null);
     const [filter, setFilter] = useState(false);
-    const isSmallScreen = () => typeof window !== 'undefined' && window.innerWidth <= 680;
+   
   
     const togglefilter = () => {
       setFilter(!filter);
@@ -103,12 +103,11 @@ const Pdfpage = () => {
     };
   return (
     <div>
-      <div className="p-2">
-          {isSmallScreen && (
+      <div className="p-2 md:hidden">
             <div className="flex items-center">
               <button
                 onClick={togglefilter}
-                className="text-black hover:text-gray-300 focus:outline-none md:hidden"
+                className="text-black hover:text-gray-300 focus:outline-none"
               >
                 {filter ? (
                   <RiCloseFill className="text-2xl" />
@@ -125,7 +124,6 @@ const Pdfpage = () => {
                 </button>
               )}
             </div>
-          )}
         </div>
 
         <div className="flex">

@@ -4,22 +4,21 @@ import { useEffect, useState } from "react";
 import "./quiz.css";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 import PatchAffairsForm from "./AffairsPatchForm";
-import {
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { SocialMedia } from "../../components/Socialmedia/socialmedia";
 import Image from "next/image";
 import he from "he";
+import { usePathname } from "next/navigation";
 
+export default function CurrentaffairsId({ affairDetailsData }) {
+  const { data: userData } = useGetUserQuery();
 
+  const origin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
+  const pageUrl = `${origin}`;
+  const pageFullUrl = pageUrl + usePathname();
 
-export default function CurrentaffairsId({affairDetailsData}) {
-
-
-  const { data: userData} = useGetUserQuery();
   let role;
   if (userData) {
     if (userData.role === "admin") {
@@ -31,10 +30,8 @@ export default function CurrentaffairsId({affairDetailsData}) {
     role = false;
   }
 
-
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [feedback, setFeedback] = useState({});
-
 
   if (!affairDetailsData) {
     return (
@@ -71,53 +68,40 @@ export default function CurrentaffairsId({affairDetailsData}) {
   const decodeHtmlEntities = (html) => {
     return he.decode(html);
   };
-  
 
   return (
     <div>
-     <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
-          <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetailsData.topic) }} />  
-          </h1>
-          <div className="md:mx-12 my-5">
-            <Image
-              width={500}
-              height={500}
-              alt={`${affairDetailsData.photo}`}
-              src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/${affairDetailsData.photo}`}
-              className="w-full mx-auto rounded-lg"
-            />
-          </div>
-          {/* <SocialMedia /> */}
+      <h1 className="mt-10 text-[1.3rem] font-[550] text-center">
+        <span
+          dangerouslySetInnerHTML={{
+            __html: decodeHtmlEntities(affairDetailsData.topic),
+          }}
+        />
+      </h1>
+      <div className="md:mx-12 my-5">
+        <Image
+          width={500}
+          height={500}
+          alt={`${affairDetailsData.photo}`}
+          src={`${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/affairs/${affairDetailsData.photo}`}
+          className="w-full mx-auto rounded-lg"
+        />
+      </div>
+      <SocialMedia url={pageFullUrl} />
 
-          <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6 ">
-            Current Affairs {affairDetailsData.category}
-          </h1>
-          <p className="mt-4 text-justify text-lg">
-          <span dangerouslySetInnerHTML={{ __html: decodeHtmlEntities(affairDetailsData.description) }} />
-          </p>
-          <div className="flex justify-between mt-10 ">
-            <span className="text-center text-md ">Share with Friends :</span>
-            <span className="flex text-gray-400 justify-center space-x-4">
-              <a className=" " href="" target="_blank" rel="noreferrer">
-                <FaFacebook className="text-blue-500 w-7 h-7" />
-              </a>
-
-              <a className=" " href="" target="_blank" rel="noreferrer">
-                <FaTwitter className="text-blue-400 w-7 h-7" />
-              </a>
-
-              <a className=" " href="" target="_blank" rel="noreferrer">
-                <FaInstagram className="text-pink-500 w-7 h-7" />
-              </a>
-
-              <a className=" " href="" target="_blank" rel="noreferrer">
-                <FaLinkedin className="text-blue-600 w-7 h-7" />
-              </a>
-              <a className=" " href="" target="_blank" rel="noreferrer">
-                <FaWhatsapp className="text-green-500 w-7 h-7" />
-              </a>
-            </span>
-          </div>
+      <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6 ">
+        Current Affairs {affairDetailsData.category}
+      </h1>
+      <p className="mt-4 text-justify text-lg">
+        <span
+          dangerouslySetInnerHTML={{
+            __html: decodeHtmlEntities(affairDetailsData.description),
+          }}
+        />
+      </p>
+      <div className="flex justify-between mt-10 ">
+        <SocialMedia url={pageFullUrl} />
+      </div>
       {affairDetailsData.data.length > 0 && (
         <div>
           <h1 className="mt-10 text-lg font-bold text-center">

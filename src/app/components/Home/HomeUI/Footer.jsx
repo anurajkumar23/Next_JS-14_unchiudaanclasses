@@ -15,7 +15,7 @@ function Footer() {
           सारे Updates पाने के लिए Subscribe करें
         </strong>
         <Link href="https://t.me/UnchiudaanClasses">
-          <div className="mt-6 flex w-fit hover:bg-blue-500 px-3 py-1 justify-between space-x-3 text-lg mx-auto rounded-full bg-blue-300 text-white">
+          <div className="mt-6 flex w-fit hover:bg-blue-700 px-3 py-1 justify-between space-x-3 text-lg mx-auto rounded-full bg-blue-500 text-white">
             <FaTelegramPlane className="w-7 h-7" />
             <span>Subscribe</span>
           </div>

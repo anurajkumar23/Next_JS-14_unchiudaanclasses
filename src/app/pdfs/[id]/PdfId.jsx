@@ -8,11 +8,21 @@ import he from "he";
 import { FaDownload, FaFileAlt } from "react-icons/fa";
 import Image from "next/image";
 import PDFPatchForm from "./PDFPatchForm";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
+import { SocialMedia } from "../../components/Socialmedia/socialmedia";
 
 const PdfId = ({ pdfDetails }) => {
   const { data: userData } = useGetUserQuery();
   const { id } = useParams();
+
+
+  const origin =
+  typeof window !== "undefined" && window.location.origin
+    ? window.location.origin
+    : "";
+const pageUrl = `${origin}`;
+const pageFullUrl = pageUrl + usePathname();
+
   let role;
 
   if (userData) {
@@ -148,7 +158,7 @@ const PdfId = ({ pdfDetails }) => {
               </div>
             </a>
           </div>
-          {/* <SocialMedia /> */}
+          <SocialMedia url={pageFullUrl}/>
           <h1 className="text-center font-bold text-[2rem] md:text-[2.5rem] mb-6">
             {pdfDetails.category} PDF download <br />
           </h1>
@@ -159,7 +169,7 @@ const PdfId = ({ pdfDetails }) => {
               }}
             />
           </p>
-          {/* <SocialMedia /> */}
+          <SocialMedia url={pageFullUrl}/>
         </div>
       </div>
       {role ? <PDFPatchForm details={pdfDetails} /> : ""}

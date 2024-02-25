@@ -48,7 +48,7 @@ export default function HomePdf() {
         })}
       </div>
       <Link href="/pdfs">
-        <div className="text-center hover:bg-purple-500 mt-6 text-xl mx-auto  font-semibold w-fit  px-5 py-1 bg-purple-300 text-white rounded-xl hover:shadow-xl ">
+        <div className="text-center hover:bg-purple-700 mt-6 text-xl mx-auto  font-semibold w-fit  px-5 py-1 bg-purple-500 text-white rounded-xl hover:shadow-xl ">
           View More
         </div>
       </Link>

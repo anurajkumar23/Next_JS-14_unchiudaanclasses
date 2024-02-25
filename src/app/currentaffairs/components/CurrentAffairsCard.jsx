@@ -16,12 +16,9 @@ const CurrentAffairsCard = () => {
   const [affairs, setAffairs] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filter, setFilter] = useState(false);
-  const isSmallScreen = () =>
-    typeof window !== "undefined" && window.innerWidth <= 680;
 
-  //   const canonicalUrl = window.location.href;
 
-  const toggleFilter = () => {
+  const togglefilter = () => {
     setFilter(!filter);
   };
 
@@ -79,29 +76,27 @@ const CurrentAffairsCard = () => {
 
   return (
     <div>
-      <div className="p-2">
-        {isSmallScreen && (
-          <div className="flex items-center">
-            <button
-              onClick={toggleFilter}
-              className="text-black hover:text-gray-300 focus:outline-none md:hidden"
-            >
-              {filter ? (
-                <RiCloseFill className="text-2xl" />
-              ) : (
-                <RiMenu3Fill className="text-2xl" />
-              )}
-            </button>
-            {!filter && (
-              <button
-                onClick={toggleFilter}
-                className="ml-2 px-3 py-1 text-gray-600 text-sm bg-gray-200 hover:bg-gray-300 focus:outline-none rounded"
-              >
-                View more
-              </button>
+      <div className="p-2 md:hidden ">
+        <div className="flex items-center">
+          <button
+            onClick={togglefilter}
+            className="text-black hover:text-gray-300 focus:outline-none "
+          >
+            {filter ? (
+              <RiCloseFill className="text-2xl" />
+            ) : (
+              <RiMenu3Fill className="text-2xl" />
             )}
-          </div>
-        )}
+          </button>
+          {!filter && (
+            <button
+              onClick={togglefilter}
+              className="ml-2 px-3 py-1 text-gray-600 text-sm bg-gray-200 hover:bg-gray-300 focus:outline-none rounded"
+            >
+              View more
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex">
         <div
@@ -152,7 +147,7 @@ const CurrentAffairsCard = () => {
         >
           <Sidebar
             setSelectedCategory={handleCategoryChange}
-            toggleFilter={toggleFilter}
+            togglefilter={togglefilter}
           />
         </div>
       </div>

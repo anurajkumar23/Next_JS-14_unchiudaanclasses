@@ -1,30 +1,18 @@
 "use client";
-// import { useEffect, useState } from "react";
-// import { useParams } from "next/navigation";
-// import axios from "axios";
+
+import { SocialMedia } from "../../components/Socialmedia/socialmedia";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
-import PatchNewsForm from "./PatchNewsForm"
+import PatchNewsForm from "./PatchNewsForm";
+import { usePathname } from "next/navigation";
 
-const NewsIds = ({news}) => {
-  // const { id } = useParams();
-  // const [news, setNews] = useState();
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${process.env.NEXT_PUBLIC_BACKEND_URL}/news/${id}`
-  //       );
-  //       setNews(response.data.data.news);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [id]);
-
+const NewsIds = ({ news }) => {
   const { data: userData } = useGetUserQuery();
+  const origin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
+  const pageUrl = `${origin}`;
+  const pageFullUrl = pageUrl + usePathname();
   let role;
   if (userData) {
     if (userData.role === "admin") {
@@ -37,6 +25,7 @@ const NewsIds = ({news}) => {
   }
   return (
     <div>
+      <SocialMedia url={pageFullUrl} />
       {role && <PatchNewsForm details={news} />}
     </div>
   );

@@ -3,6 +3,7 @@ import he from "he";
 import NewsIds from "./NewsIds";
 import Image from "next/image";
 
+
 const decodeHtmlEntities = (html) => {
   return he.decode(html);
 };
@@ -19,8 +20,8 @@ export async function generateMetadata({ params: { id } }) {
   return {
     title: decodeAndRemoveHtml(news.heading),
     description: decodeAndRemoveHtml(news.article),
-    alternates:{
-      canonical: `/news/${id}`
+    alternates: {
+      canonical: `/news/${id}`,
     },
     openGraph: {
       images: `${process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE}/img/news/${news.photo}`,
@@ -32,6 +33,8 @@ export async function generateMetadata({ params: { id } }) {
 
 async function NewsPage({ params: { id } }) {
   const news = await getNewsId(id);
+
+  
 
   if (!news) {
     return (
@@ -73,8 +76,7 @@ async function NewsPage({ params: { id } }) {
             dangerouslySetInnerHTML={{
               __html: decodeHtmlEntities(news.article),
             }}
-          />
-          {/* <SocialMedia /> */}
+          />  
         </div>
         <NewsIds news={news} />
       </div>
