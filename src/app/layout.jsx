@@ -4,6 +4,7 @@ import Navbar from "./components/NavBar/Navbar";
 import Footer from "./components/Home/HomeUI/Footer";
 import Provider from "./provider";
 import AdSenseUnit from "./AdSenseUnit"
+import BottomToTopButton from "./components/TopDownButton/BottomToTopButton"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
       <Navbar/>
       {children}
       <Footer/>
+      <BottomToTopButton className="z-10" />
       <AdSenseUnit adClient="ca-pub-2481549712830615" />
       </Provider>  
       </body>

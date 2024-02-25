@@ -33,7 +33,7 @@ function Hero() {
             </button>
           </Link>
           <Link href="https://t.me/UnchiudaanClasses">
-            <div className=" flex w-fit hover:bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] px-2 py-1  text-lg mx-auto rounded-full bg-blue-300 text-white">
+            <div className=" flex w-fit hover:bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] px-2 py-1  text-lg mx-auto rounded-full bg-blue-500 text-white">
               <FaTelegramPlane className="w-7 h-7" />
             </div>
           </Link>
