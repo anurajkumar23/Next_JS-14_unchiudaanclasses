@@ -19,7 +19,7 @@ export const metadata = {
     card: 'summary_large_image',
   },
   openGraph: {
-    images: '${process.env.NEXT_PUBLIC_FRONTEND_URL}/uchiudan.png',
+    images: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/uchiudan.png`,
     width: 800,
     height: 600,
   },
