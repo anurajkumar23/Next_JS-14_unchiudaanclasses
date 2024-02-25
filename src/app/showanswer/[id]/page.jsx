@@ -6,6 +6,7 @@ import logo from "../../../../public/uchiudan.png";
 import Image from "next/image";
 import html2canvas from "html2canvas/dist/html2canvas";
 import jsPDF from "jspdf";
+import { saveAs } from 'file-saver';
 
 export default function ShowAnswer() {
   const { id } = useParams();
@@ -44,39 +45,44 @@ export default function ShowAnswer() {
     // Create a new instance of jsPDF
     const pdf = new jsPDF("p", "mm", "a4", "true");
 
-    const pageHeight = 1130; // Height of A4 page in mm
+    const pageHeight = 1170; // Height of A4 page in mm
     let yOffset = 0;
     let currentPage = 0;
 
     while (yOffset < totalHeight) {
-      // Use html2canvas to capture the content of each page
-      const canvas = await html2canvas(capture, {
-        windowHeight: totalHeight,
-        y: yOffset,
-      });
+        // Use html2canvas to capture the content of each page
+        const canvas = await html2canvas(capture, {
+            windowHeight: totalHeight,
+            y: yOffset,
+        });
 
-      // Calculate the width and height for the image based on the aspect ratio
-      const imgWidth = 215; // Width of A4 page in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        // Calculate the width and height for the image based on the aspect ratio
+        const imgWidth = 204; // Width of A4 page in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      // Add a new page to the PDF
-      if (currentPage > 0) {
-        pdf.addPage();
-      }
+        // Convert canvas to PNG image data URL with reduced quality
+        const imgData = canvas.toDataURL('image/jpeg', 0.6); // Adjust quality as needed
 
-      // Add the image to the PDF with a margin at the bottom
-      pdf.addImage(canvas, "PNG", 0, 0, imgWidth, imgHeight);
+        // Add a new page to the PDF
+        if (currentPage > 0) {
+            pdf.addPage();
+        }
 
-      // Move to the next portion of the content
-      yOffset += pageHeight;
-      currentPage++;
+        // Add the image to the PDF with a margin at the bottom
+        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight);
+
+        // Move to the next portion of the content
+        yOffset += pageHeight;
+        currentPage++;
     }
 
     // Save the PDF
-    pdf.save("Answers.pdf");
+    const pdfData = pdf.output('blob');
+    saveAs(pdfData, 'Answers.pdf');
 
     SetLoader(false);
-  };
+};
+
 
   return (
     <>

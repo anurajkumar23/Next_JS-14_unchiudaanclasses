@@ -10,9 +10,11 @@ import jsPDF from "jspdf";
 import Image from "next/image";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 import he from "he";
+import { saveAs } from 'file-saver';
+
 
 export default function ResultPage() {
-  const { data: userData} = useGetUserQuery();
+  const { data: userData } = useGetUserQuery();
   const { id } = useParams();
   const [resultData, setResultData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,6 +24,7 @@ export default function ResultPage() {
   const [resultHeading, setResultHeading] = useState("");
   const [loader, SetLoader] = useState(false);
 
+ 
   let role;
 
   if (userData) {
@@ -44,39 +47,45 @@ export default function ResultPage() {
     // Create a new instance of jsPDF
     const pdf = new jsPDF("p", "mm", "a4", "true");
 
-    const pageHeight = 1130; // Height of A4 page in mm
+    const pageHeight = 1850; // Height of A4 page in mm
     let yOffset = 0;
     let currentPage = 0;
 
     while (yOffset < totalHeight) {
-      // Use html2canvas to capture the content of each page
-      const canvas = await html2canvas(capture, {
-        windowHeight: totalHeight,
-        y: yOffset,
-      });
+        // Use html2canvas to capture the content of each page
+        const canvas = await html2canvas(capture, {
+            windowHeight: totalHeight,
+            y: yOffset,
+        });
 
-      // Calculate the width and height for the image based on the aspect ratio
-      const imgWidth = 215; // Width of A4 page in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        // Calculate the width and height for the image based on the aspect ratio
+        const imgWidth = 215; // Width of A4 page in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      // Add a new page to the PDF
-      if (currentPage > 0) {
-        pdf.addPage();
-      }
+        // Convert canvas to PNG image data URL with reduced quality
+        const imgData = canvas.toDataURL('image/jpeg', 0.6); // Adjust quality as needed
 
-      // Add the image to the PDF with a margin at the bottom
-      pdf.addImage(canvas, "PNG", 0, 0, imgWidth, imgHeight);
+        // Add a new page to the PDF
+        if (currentPage > 0) {
+            pdf.addPage();
+        }
 
-      // Move to the next portion of the content
-      yOffset += pageHeight;
-      currentPage++;
+        // Add the image to the PDF with a margin at the bottom
+        pdf.addImage(imgData, "JPEG", 0, 0, imgWidth, imgHeight);
+
+        // Move to the next portion of the content
+        yOffset += pageHeight;
+        currentPage++;
     }
 
     // Save the PDF
-    pdf.save("Result.pdf");
+    const pdfData = pdf.output('blob');
+    saveAs(pdfData, 'Result.pdf');
 
     SetLoader(false);
-  };
+};
+
+
 
   function decodeHtmlEntities(html) {
     const decodedHtml = he.decode(html);
@@ -210,7 +219,7 @@ export default function ResultPage() {
       <div className="w-full px-[2%]  mb-[3rem]">
         <div className="overflow-x-auto ">
           <table className="result-table opacity-90 ">
-          <thead className="">
+            <thead className="">
               <tr className="bg-gray-300 text-center ">
                 <td
                   className=" bg-gradient-to-r from-indigo-700 to-purple-700 mx-auto px-6 py-3 border-b border border-black text-white uppercase font-semibold"

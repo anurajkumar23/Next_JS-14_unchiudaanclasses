@@ -3,7 +3,7 @@ export default function robots() {
       rules: {
         userAgent: '*',
         allow: '/',
-        disallow: '/adminpower',
+        disallow: ['/adminpower','/studymaterials']
       },
       sitemap: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/sitemap.xml`,
     }
