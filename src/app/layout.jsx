@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "./components/NavBar/Navbar";
 import Footer from "./components/Home/HomeUI/Footer";
 import Provider from "./provider";
-
+import AdSenseUnit from "./AdSenseUnit"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,7 +39,8 @@ export default function RootLayout({ children }) {
       <Navbar/>
       {children}
       <Footer/>
-      </Provider>
+      <AdSenseUnit adClient="ca-pub-2481549712830615" />
+      </Provider>  
       </body>
     </html>
   );
