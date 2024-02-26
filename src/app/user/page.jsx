@@ -1,47 +1,67 @@
 /* eslint-disable react/prop-types */
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiUser, FiMail, FiPhone, FiLock } from "react-icons/fi";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast"; // Import toast
 import Link from "next/link";
 import { useGetUserQuery } from "../redux/slices/userSlices";
+// import { useGetUserQuery } from "../redux/slices/userSlices";
 
+async function fetchData() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data.user;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
 
-function UserSettings() {
-  const { data: userData, error, isLoading } = useGetUserQuery();
-  // const [settingsData, setSettingsData] = useState({
+  
+  function UserSettings() {
+    const { data: userDataFromQuery } = useGetUserQuery();
+    const [userData, setUserData] = useState(null);
+  
+    useEffect(() => {
+      async function fetchDataManually() {
+        try {
+          const userData = await fetchData();
+          setUserData(userData);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+  
+      if (!userDataFromQuery) {
+        fetchDataManually();
+      } else {
+        setUserData(userDataFromQuery);
+      }
+    }, [userDataFromQuery]);
+    
     const [passwordData, setPasswordData] = useState({
       currentPassword: "",
       newPassword: "",
       confirmPassword: "",
     });
-  //   name: userData ? `${userData.firstname} ${userData.lastname}` : "",
-  //   email: userData ? userData.email : "",
-  //   phone: userData ? userData.phone : "",
-  //   role: userData ? userData.role : "",
-  //   googleLogIn: userData ? userData.googleLogIn : false,
-  // });
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div
-          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-info motion-reduce:animate-[spin_1.5s_linear_infinite]"
-          role="status"
-        >
-          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-            Loading...
-          </span>
-        </div>
-      </div>
-    );
-  }
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  if (!userData) {
-    return <div>No data available</div>;
-  }
+  
+  
+    if (!userData) {
+      return <div>Loading...</div>;
+    }
+ 
+    
  
 
   const token = localStorage.getItem("jwt_token");
@@ -123,6 +143,10 @@ function UserSettings() {
       toast.error("Error updating password. Please try again."); // Show error toast
     }
   };
+
+
+
+
 
   return (
     <div className="bg-gray-200 p-4 sm:p-8 md:p-16 lg:p-32 flex-1 relative bg-gray-100 py-[4rem]">
