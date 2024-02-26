@@ -6,6 +6,7 @@ import Provider from "./provider";
 import AdSenseUnit from "./AdSenseUnit"
 import BottomToTopButton from "./components/TopDownButton/BottomToTopButton"
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -31,8 +32,7 @@ export const metadata = {
 };
 
 
-export default function RootLayout({ children }) {
-
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>

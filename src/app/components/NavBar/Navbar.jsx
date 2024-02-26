@@ -13,15 +13,55 @@ import Testicon from "./icons/icons8-test.gif";
 import logo from "../../../../public/uchiudan.png"
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 
+async function fetchData() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data.user;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
+
 
 export default function Navbar() {
+
   // console.log(userData.user.email)
-  const { data: userData} = useGetUserQuery();
+  const { data: userDataFromQuery } = useGetUserQuery();
+    const [userData, setUserData] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+
+  useEffect(() => {
+    async function fetchDataManually() {
+      try {
+        const userData = await fetchData();
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    }
+
+    if (!userDataFromQuery) {
+      fetchDataManually();
+    } else {
+      setUserData(userDataFromQuery);
+    }
+  }, [userDataFromQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,10 +110,14 @@ export default function Navbar() {
       console.error("Error logging out:", error);
     }
   };
-  const googlelogout = async () => {
-    const email = userData.email;
-    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`, { email });
-  };
+  const googlelogout=async()=>{
+    const email=userData.email
+    window.open(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`,"_self")
+    await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`,{email});
+    
+    
+  }
+
 
   return (
     <div className="">

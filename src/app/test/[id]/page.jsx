@@ -6,8 +6,32 @@ import axios from "axios";
 import { useGetUserQuery } from "../../redux/slices/userSlices";
 import { useParams } from "next/navigation";
 
+
+async function fetchData() {
+  
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/login/success`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data.user;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return null;
+  }
+}
+
+
 export default function StartTest() {
-  const { data:userData} = useGetUserQuery();
+  const { data: userDataFromQuery } = useGetUserQuery();
+    const [userData, setUserData] = useState(null);
   const [liveTest, setLiveTest] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -16,7 +40,22 @@ export default function StartTest() {
   const [newdata,setNewData]=useState(null)
   const [open,setOpen]=useState(true)
 
+  useEffect(() => {
+    async function fetchDataManually() {
+      try {
+        const userData = await fetchData();
+        setUserData(userData);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    }
 
+    if (!userDataFromQuery) {
+      fetchDataManually();
+    } else {
+      setUserData(userDataFromQuery);
+    }
+  }, [userDataFromQuery]);
 
   useEffect(() => {
     const fetchData = async () => {
